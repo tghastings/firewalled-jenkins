@@ -75,14 +75,34 @@
         </div>
     <!-- END PROVIDE SECRET -->
     <!-- JENKINS -->
-        <div id="jenkins-hosts" class="row api-class" style="display:none;">
+        <div id="jenkins-hosts" class="row api-class jenkins-hosts" style="display:none;">
             <div class="col-md-3 set-secret-information">
             <h3>Jenkins Hosts</h3>
-            <p>Jenkins hosts content goes here</p>
+            <p id="jenkins-host-verbiage"></p>
+            <ul id="list-apis-jenkins" class="jenkins-host-list">
+            </ul>
             </div>
             <div class="col-md-6 secret-key-form">
                 <!-- Form Name -->
-                <h3>Jenkins Hosts</h3>
+                <h3>Add Jenkins Host</h3>
+                <form id="add-jenkins-api-form">
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="control-label" for="api-url">Jenkins Host URL:</label>
+                        <input id="provide-secret-key-input" name="url" type="text" placeholder="http://jenkins-host.com" class="form-control input-md" required="">
+                        <span class="help-block">The URL to the Jenkins host</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="api-key">Jenkins Host API Key:</label>
+                        <input id="provide-secret-key-input" name="apiKey" type="text" placeholder="API Key" class="form-control input-md" required="">
+                        <span class="help-block">Your API key for the Jenkins host</span>
+                    </div>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <button id="provide-key-btn" class="btn btn-primary" action="submit">Add +</button>
+                        <span class="help-block">Your credentials will be verified</span>
+                    </div>
+                </form>
             </div>
             <div class="col-md-3"></div>
         </div>

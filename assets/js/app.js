@@ -57,7 +57,7 @@ function divState(page_display) {
             $('#provide-secret').show();
             break;
         case 'jenkins-hosts':
-            $('#jenkins-hosts').show();
+            $('#jenkins-hosts').show(getUsersJenkinsAPIs());
             break;
     }
 }
@@ -73,7 +73,7 @@ function checkState() {
         if (msg.auth == 'true') {
             if (msg.hasKey == 'true') {
                 // Lets see if they've already provided a key
-                if (getCookie('stored-key') !== '') {
+                if (getCookie('stored_key') !== '') {
                     divState('jenkins-hosts')
                     // User has a key and it's been stored so lets allow them access to jenkins api
                 } else {
@@ -153,3 +153,33 @@ $('#provide-secret-key-form').submit(function(e) {
     }
     consoleAjaxCmd('POST','/user/secret/check','secretKey='+secretKey, success);
 });
+
+// ADD-JENKINS-HOST
+$('#add-jenkins-api-form').submit(function(e) {
+    e.preventDefault();
+    var formData = $(this).serialize();
+    var success = function (msg, status, jqXHR) {
+        divConsoleAlert('alert-success', 'SUCCESS: ', 'Jenkins host has been added');
+        getUsersJenkinsAPIs();
+    }
+    consoleAjaxCmd('POST','/jenkins/create',formData, success);
+    this.reset();
+});
+
+// GET-JENKINS-HOSTS
+function getUsersJenkinsAPIs() {
+    var success = function (msg, status, jqXHR) {
+        var user_apis = msg.user[0].apis;
+        if (user_apis.length > 0) {
+            var template = '';
+            for (var i in user_apis.reverse()) {
+                var api = user_apis[i];
+                template += '<li id="'+ api.id +'">'+ api.url +'<ul class="jenkins-host-list-options"><li>Connect</li><li>Destroy</li></ul></li>'
+            }
+            $('#list-apis-jenkins').html(template);
+        } else {
+            $('#jenkins-host-verbiage').append('You haven\'t added any hosts. Please add one using the form');
+        }
+    }
+    consoleAjaxCmd('GET','/jenkins','', success);
+}

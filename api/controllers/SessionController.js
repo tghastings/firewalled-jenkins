@@ -7,7 +7,7 @@
 var SessionController = {
     validate: function (req, res) {
         if (req.cookies.token) {
-            Users.find({uuid: req.cookies.token}).exec(function (err, found){
+            User.find({uuid: req.cookies.token}).exec(function (err, found){
                 if (found.length != 0) {
                     req.session.authenticated = true
                     res.cookie('username', found[0].email)
@@ -35,7 +35,7 @@ var SessionController = {
         res.clearCookie('username');
         res.clearCookie('token');
         res.clearCookie('uuid');
-        res.clearCookie('stored-key');
+        res.clearCookie('stored_key');
         return res.redirect('/login');
     }
 }

@@ -25,6 +25,11 @@ module.exports.routes = {
     controller    : 'Users',
     action        : 'create'
   },
+  'post /jenkins/create': {
+    controller    : 'Jenkinsapis',
+    action        : 'create',
+    policy: 'sessionAuth'
+  },
   'post /user/secret': {
     controller    : 'Users',
     action        : 'secret',
@@ -48,6 +53,11 @@ module.exports.routes = {
   'get /users': {
     controller    : 'Users',
     action        : 'index'
+  },
+  'get /jenkins': {
+    controller    : 'Jenkinsapis',
+    action        : 'index',
+    policy: 'sessionAuth'
   },
   /***************************************************************************
   *                                                                          *

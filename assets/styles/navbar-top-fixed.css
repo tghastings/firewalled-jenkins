@@ -55,3 +55,55 @@ body {
 .btn {
     cursor: pointer;
 }
+.jenkins-hosts ul {
+    padding:0;
+    margin:0;
+    display:block;
+    float:left;
+    width:100%;
+    list-style:none;
+}
+.jenkins-hosts .jenkins-host-list li {
+    margin: 0;
+    display: block;
+    float: left;
+    width: 100%;
+    background-color: #292B2C;
+    padding: 5px;
+    border-bottom: 1px solid #353535;
+    font-size: 0.95em;
+    text-align: center;
+    cursor: pointer;
+}
+.jenkins-host-list li:hover {
+    background-color:#191919;
+    border-bottom:1px solid #eee;
+    border-top:1px solid #eee;
+}
+.jenkins-hosts .jenkins-host-list-options li {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+    border: none;
+    font-size: 0.85em;
+    border-top: 1px solid #353535;
+    margin-top: 5px;
+    cursor: pointer;
+    display:none;
+}
+.jenkins-hosts .jenkins-host-list-options li:first-child {
+    border-right: 1px solid #353535;
+    color:#00FF00;
+}
+.jenkins-hosts .jenkins-host-list-options li:last-child {
+    color:#FF0000;
+}
+.jenkins-hosts .jenkins-host-list-options li:hover {
+    background-color:#292B2C !important;
+}
+.jenkins-host-list li:hover .jenkins-host-list-options li {
+    display: block;
+    background-color:#191919;
+}
