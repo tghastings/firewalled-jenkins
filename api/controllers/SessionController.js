@@ -11,8 +11,13 @@ var SessionController = {
                 if (found.length != 0) {
                     req.session.authenticated = true
                     res.cookie('username', found[0].email)
+                    var hasSecretKey = 'false'
+                    if (!!found[0].secretKeyCheck) {
+                        hasSecretKey = 'true'
+                    }
                     return res.json({
                         notice: 'Authorized',
+                        hasKey: hasSecretKey,
                         auth: 'true'
                     });
                 } else {
@@ -29,6 +34,8 @@ var SessionController = {
         req.session.authenticated = false
         res.clearCookie('username');
         res.clearCookie('token');
+        res.clearCookie('uuid');
+        res.clearCookie('stored-key');
         return res.redirect('/login');
     }
 }

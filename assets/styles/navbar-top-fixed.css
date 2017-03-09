@@ -33,7 +33,10 @@ body {
     color: #292B2C;
     box-shadow: 1px 1px 50px #292B2C;
 }
-
+.set-secret-information {
+    padding-top: 10px;
+    background-color: #222
+}
 .api-class-header .alert{
     line-height: 24px;
     width: 101.9%;
@@ -47,5 +50,8 @@ body {
     float: right;
     font-weight: bolder;
     padding: 1px;
+    cursor: pointer;
+}
+.btn {
     cursor: pointer;
 }

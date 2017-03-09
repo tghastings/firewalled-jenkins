@@ -25,6 +25,16 @@ module.exports.routes = {
     controller    : 'Users',
     action        : 'create'
   },
+  'post /user/secret': {
+    controller    : 'Users',
+    action        : 'secret',
+    policy: 'sessionAuth'
+  },
+  'post /user/secret/check': {
+    controller    : 'Users',
+    action        : 'secret_check',
+    policy: 'sessionAuth'
+  },
   'get /session/validate': {
     controller    : 'Session',
     action        : 'validate',

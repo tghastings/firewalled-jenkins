@@ -1,6 +1,6 @@
 <div class="container">
     <div>
-        <h1>Welcome <span id="h1-welcome-username">Unknown</span></h1>
+        <h1>Welcome <span id="h1-welcome-username"></span></h1>
         <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
     </div>
     <div class="row api-class-header">
@@ -13,33 +13,79 @@
             </div>
         </div>
     </div>
-    <div id="set-secret" class="row api-class">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 secret-key-form">
-            <!-- Form Name -->
-            <legend>Set Your Secret Key</legend>
-            <form id="set-secret-key-form">
-                <!-- Text input-->
-                <div class="form-group">
-                <label class="control-label" for="secretkey">Secret Key:</label>
-                <input id="secret-key" name="secretkey" type="text" placeholder="placeholder" class="form-control input-md" required="">
-                <span class="help-block">The key that will be used to encrypt your API keys</span>
-                </div>
+    <div id="console-wrapper">
+    <!-- SET SECRET-->
+        <div id="set-secret" class="row api-class">
+            <div class="col-md-3 set-secret-information">
+            <h3>Initial Setup</h3>
+            <p>Your account does not have an active secret key. A key is required to be set before continuing.</p>
+            </div>
+            <div class="col-md-6 secret-key-form">
+                <!-- Form Name -->
+                <h3>Set Your Secret Key</h3>
+                <form id="set-secret-key-form">
+                    <!-- Text input-->
+                    <div class="form-group">
+                    <label class="control-label" for="secretkey">Secret Key:</label>
+                    <input id="secret-key" name="secretkey" type="text" placeholder="placeholder" class="form-control input-md" required="">
+                    <span class="help-block">The key that will be used to encrypt your API keys</span>
+                    </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                <label class="control-label" for="secret-key-confir,">Confirm Secret Key:</label>
-                <input id="secret-key-confirm" name="secret-key-confir," type="text" placeholder="placeholder" class="form-control input-md" required="">
-                <span class="help-block">Verify your secret key</span>
-                </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                    <label class="control-label" for="secret-key-confir,">Confirm Secret Key:</label>
+                    <input id="secret-key-confirm" name="secret-key-confir," type="text" placeholder="placeholder" class="form-control input-md" required="">
+                    <span class="help-block">Verify your secret key</span>
+                    </div>
 
-                <!-- Button -->
-                <div class="form-group">
-                    <button id="set-key-btn" class="btn btn-danger" action="submit">Submit</button>
-                    <span class="help-block">This can only be set once. If you forget the key you will have to start over in the system.</span>
-                </div>
-            </form>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <button id="set-key-btn" class="btn btn-warning" action="submit">Submit</button>
+                        <span class="help-block">This can only be set once. If you forget the key you will have to start over in the system.</span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
         </div>
-        <div class="col-md-3"></div>
-      </div>
+    <!-- END SET SECRET -->
+    <!-- PROVIDE SECRET-->
+        <div id="provide-secret" class="row api-class" style="display:none;">
+            <div class="col-md-3 set-secret-information">
+            <h3>Provide Key</h3>
+            <p>Please provide the secret key you used when you first registered for the service.</p> <button id="forgot-key-btn" class="btn btn-sm btn-danger" >Forgot Key</button>
+            </div>
+            <div class="col-md-6 secret-key-form">
+                <!-- Form Name -->
+                <h3>Your Secret Key</h3>
+                <form id="provide-secret-key-form">
+                    <!-- Text input-->
+                    <div class="form-group">
+                    <label class="control-label" for="secretkey">Secret Key:</label>
+                    <input id="provide-secret-key-input" name="secretkey" type="text" placeholder="placeholder" class="form-control input-md" required="">
+                    <span class="help-block">The key that you used when you signed in the first time</span>
+                    </div>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <button id="provide-key-btn" class="btn btn-primary" action="submit">Submit</button>
+                        <span class="help-block">Forgot key? Rest it using the button on the left.</span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    <!-- END PROVIDE SECRET -->
+    <!-- JENKINS -->
+        <div id="jenkins-hosts" class="row api-class" style="display:none;">
+            <div class="col-md-3 set-secret-information">
+            <h3>Jenkins Hosts</h3>
+            <p>Jenkins hosts content goes here</p>
+            </div>
+            <div class="col-md-6 secret-key-form">
+                <!-- Form Name -->
+                <h3>Jenkins Hosts</h3>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    <!-- END PROVIDE SECRET -->
+    </div>
 </div>
