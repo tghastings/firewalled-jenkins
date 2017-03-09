@@ -1,0 +1,45 @@
+<div class="container">
+    <div>
+        <h1>Welcome <span id="h1-welcome-username">Unknown</span></h1>
+        <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
+    </div>
+    <div class="row api-class-header">
+        <div class="col-md-4">
+            <h2>Management Console</h2>
+        </div>
+        <div class="col-md-8">
+            <div id="management-alert" class="alert" role="alert" style="display: none;">
+                <span id="alert-content"></span> <span id="close-alert" class="close-button">&nbsp; X &nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div id="set-secret" class="row api-class">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 secret-key-form">
+            <!-- Form Name -->
+            <legend>Set Your Secret Key</legend>
+            <form id="set-secret-key-form">
+                <!-- Text input-->
+                <div class="form-group">
+                <label class="control-label" for="secretkey">Secret Key:</label>
+                <input id="secret-key" name="secretkey" type="text" placeholder="placeholder" class="form-control input-md" required="">
+                <span class="help-block">The key that will be used to encrypt your API keys</span>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                <label class="control-label" for="secret-key-confir,">Confirm Secret Key:</label>
+                <input id="secret-key-confirm" name="secret-key-confir," type="text" placeholder="placeholder" class="form-control input-md" required="">
+                <span class="help-block">Verify your secret key</span>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <button id="set-key-btn" class="btn btn-danger" action="submit">Submit</button>
+                    <span class="help-block">This can only be set once. If you forget the key you will have to start over in the system.</span>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+</div>

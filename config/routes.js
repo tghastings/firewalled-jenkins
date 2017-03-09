@@ -25,7 +25,16 @@ module.exports.routes = {
     controller    : 'Users',
     action        : 'create'
   },
-
+  'get /session/validate': {
+    controller    : 'Session',
+    action        : 'validate',
+    policy: 'sessionAuth'
+  },
+  'get /session/destroy': {
+    controller    : 'Session',
+    action        : 'destroy',
+    policy: 'sessionAuth'
+  },
   'get /users': {
     controller    : 'Users',
     action        : 'index'
@@ -41,7 +50,12 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'login'
+    view: 'home',
+    policy: 'sessionAuth'
+  },
+  '/login': {
+    view: 'login',
+    policy: 'loginAuth'
   },
 
   /***************************************************************************

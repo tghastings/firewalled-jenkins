@@ -1,0 +1,51 @@
+/* Show it is fixed to the top */
+body {
+  padding-top: 4.5rem !important;
+}
+.secret-key-form {
+    padding: 10px;
+}
+.secret-key-form .help-block{
+      font-size: 0.7em;
+}
+.secret-key-form .form-group{
+      border-bottom: 1px solid #efefef;
+}
+.secret-key-form .form-group:last-child{
+      border-bottom:none;
+}
+.api-class {
+    border-right:  2px solid #fefefe;
+    border-bottom: 2px solid #fefefe;
+    border-left:   2px solid  #fefefe;
+    background-color: #292B2C;
+    min-height: 500px;
+    border-radius: 0px 0px 7px 7px;
+    color: #fefefe
+}
+.api-class-header {
+    border-right:  2px solid #fefefe;
+    border-top:    2px solid #fefefe;
+    border-bottom:    2px solid #333;
+    border-left:   2px solid  #fefefe;
+    background-color: #fefefe;
+    border-radius: 7px 7px 0px 0px;
+    color: #292B2C;
+    box-shadow: 1px 1px 50px #292B2C;
+}
+
+.api-class-header .alert{
+    line-height: 24px;
+    width: 101.9%;
+    margin: 0;
+    margin-top: 2px;
+    padding: 5px;
+}
+.close-button {
+    text-align: center;
+    display: inline-block;
+    float: right;
+    font-weight: bolder;
+    padding: 1px;
+    cursor: pointer;
+}

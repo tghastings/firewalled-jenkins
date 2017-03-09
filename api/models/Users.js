@@ -10,6 +10,9 @@ module.exports = {
     email: {
       type: 'string'
     },
+    uuid: {
+      type: 'string'
+    },
     secretKeyCheck: {
       type: 'string'
     }
