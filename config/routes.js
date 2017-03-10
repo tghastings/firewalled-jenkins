@@ -40,6 +40,26 @@ module.exports.routes = {
     action        : 'secret_check',
     policy: 'sessionAuth'
   },
+  'post /jenkins/connect': {
+    controller    : 'Jenkinsapis',
+    action        : 'connect',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/jobs': {
+    controller    : 'Jenkinsapis',
+    action        : 'allJobs',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/job/info': {
+    controller    : 'Jenkinsapis',
+    action        : 'jobInfo',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/job/build/info': {
+    controller    : 'Jenkinsapis',
+    action        : 'buildInfo',
+    policy: 'sessionAuth'
+  },
   'get /session/validate': {
     controller    : 'Session',
     action        : 'validate',

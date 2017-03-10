@@ -82,7 +82,7 @@
             <ul id="list-apis-jenkins" class="jenkins-host-list">
             </ul>
             </div>
-            <div class="col-md-6 secret-key-form">
+            <div id="add-jenkins-host-form-div" class="col-md-6 secret-key-form">
                 <!-- Form Name -->
                 <h3>Add Jenkins Host</h3>
                 <form id="add-jenkins-api-form">
@@ -104,7 +104,11 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-3"></div>
+             <div id="manage-jenkins-jobs-host-form-div" class="col-md-9 secret-key-form" style="display:none;">
+                <!-- Form Name -->
+                <h3><span class="jenkins-jobs-api-url-name"></span></h3>
+                    <span class="jenkins-api-info scroll" id="build-info"></span>
+            </div>
         </div>
     <!-- END PROVIDE SECRET -->
     </div>

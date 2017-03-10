@@ -153,7 +153,6 @@ $('#provide-secret-key-form').submit(function(e) {
     }
     consoleAjaxCmd('POST','/user/secret/check','secretKey='+secretKey, success);
 });
-
 // ADD-JENKINS-HOST
 $('#add-jenkins-api-form').submit(function(e) {
     e.preventDefault();
@@ -166,6 +165,31 @@ $('#add-jenkins-api-form').submit(function(e) {
     this.reset();
 });
 
+function connectToJenkinsAPI(getType) {
+    var success = function (msg, status, jqXHR) {
+        if (msg.notice == 'Authorized') {
+            var apiName = getCookie('apiName');
+            $('.jenkins-jobs-api-url-name').text(apiName);
+            var username = msg.user_email;
+            var apiKey = msg.plainTextAPIKey;
+            var init_url = msg.url;
+            init_url = init_url.split("/");
+            var complete_url = init_url[0]+'//'+username+':'+apiKey+'@'+init_url[2];
+            switch(getType) {
+                case 'getJenkinsJobs':
+                    getJenkinsJobs(complete_url);
+                    break;
+                case 'getJenkinsJobInfo':
+                    getJenkinsJobInfo(complete_url);
+                    break;
+            }
+        } else {
+            divConsoleAlert('alert-danger', 'ERROR: ', 'You don\'t own that resource');
+        }
+    }
+    var apiID = getCookie('apiID');
+    consoleAjaxCmd('POST','/jenkins/connect','apiID='+apiID, success);
+}
 // GET-JENKINS-HOSTS
 function getUsersJenkinsAPIs() {
     var success = function (msg, status, jqXHR) {
@@ -174,12 +198,101 @@ function getUsersJenkinsAPIs() {
             var template = '';
             for (var i in user_apis.reverse()) {
                 var api = user_apis[i];
-                template += '<li id="'+ api.id +'">'+ api.url +'<ul class="jenkins-host-list-options"><li>Connect</li><li>Destroy</li></ul></li>'
+                api.url = api.url.split("/");
+                template += '<li>'+ api.url[2] +'<ul id="'+ api.id +'" class="jenkins-host-list-options"><li class="connect-to-api">Connect</li><li class="destroy-api">Destroy</li></ul></li>'
             }
             $('#list-apis-jenkins').html(template);
         } else {
             $('#jenkins-host-verbiage').append('You haven\'t added any hosts. Please add one using the form');
         }
+        // CONNECT to JENKINS$
+        $('.connect-to-api').click(function() {
+            connectToJenkinsAPI('getJenkinsJobs');
+            setCookie('apiName', api.url[2]);
+            setCookie('apiID', api.id);
+        });
+
     }
     consoleAjaxCmd('GET','/jenkins','', success);
+}
+
+function getJenkinsJobs(complete_url) {
+    var inside_success = function (msg, status, jqXHR) {
+        parseJenkinsJobs(msg.apiData);
+        $('#add-jenkins-host-form-div').hide();
+        $('#manage-jenkins-jobs-host-form-div').show();
+    }
+    consoleAjaxCmd('POST', '/jenkins/jobs', 'url='+complete_url, inside_success);
+}
+
+function parseJenkinsJobs(data) {
+    var apiID = getCookie('apiID');
+    var template = '<ul data-api="'+apiID+'" id="jenkins-jobs">'
+    for (var i in data) {
+        var job = data[i];
+        var color = job.color;
+        switch(color) {
+            case 'red':
+                color = "#EF2929"
+                break;
+            case 'blue':
+                color = "#4E9A06"
+                break;
+            }
+        template += '<li class="jenkins-job" id="'+job.name+'" style="color:'+color+'">'+job.name+' <span style="display:none;">:: Builds</span><ul style="display:none"></ul></li>';
+    }
+    template += '<ul>';
+    $('#build-info').html(template);
+    $('.jenkins-job').click(function() {
+        $(this).children().toggle();
+        setCookie('jobName', $(this).attr('id'));
+        connectToJenkinsAPI('getJenkinsJobInfo')
+    });
+}
+
+function getJenkinsJobInfo(complete_url) {
+    var jobName = getCookie('jobName');
+    var inside_success = function (msg, status, jqXHR) {
+         parseJobInfo(msg.apiData, complete_url);
+    }
+    consoleAjaxCmd('POST', '/jenkins/job/info', 'url='+complete_url+'&job_name='+jobName, inside_success);
+}
+function parseJobInfo(data, complete_url) {
+    var jobName = getCookie('jobName');
+    var template = ''
+    for (var i in data.builds.reverse()) {
+        var build = data.builds[i];
+        template += '<li class="jenkins-build" data-url="'+complete_url+'" id="'+jobName+'_'+build.number+'">'+build.number+'</li>';
+    }
+    $('#'+jobName +' ul').html(template);
+    $('.jenkins-build').hover(function() {
+        console.log($(this).attr('id'));
+        if (!$(this).hasClass("check")) {
+            var id = $(this).attr('id')
+            var complete_url = $(this).data('url')
+            id = id.split('_')
+            var job = id[0];
+            var build = id[1];
+            checkBuildResult(complete_url, job, build);
+        }
+    });
+}
+function checkBuildResult(complete_url, jobName, buildNumber) {
+    console.log('entered');
+        var inside_success = function (msg, status, jqXHR) {
+            var build_data = msg.apiData;
+            console.log(build_data);
+            var result = build_data.result;
+            var build_class = "";
+            switch(result) {
+                case 'SUCCESS':
+                    build_class = "jenkins-build-success check"
+                    break;
+                case 'FAILURE':
+                    build_class = "jenkins-build-fail check"
+                    break;
+            }
+            $('#'+jobName+'_'+buildNumber).addClass(build_class);
+        }
+        consoleAjaxCmd('POST', '/jenkins/job/build/info', 'url='+complete_url+'&job_name='+jobName+'&build_number='+buildNumber, inside_success);
 }
