@@ -36,6 +36,9 @@ var SessionController = {
         res.clearCookie('token');
         res.clearCookie('uuid');
         res.clearCookie('stored_key');
+        res.clearCookie('jobName');
+        res.clearCookie('apiName');
+        res.clearCookie('apiID');
         return res.redirect('/login');
     }
 }

@@ -81,9 +81,9 @@ var JenkinsapisController = {
         var url = params.url;
         var job = params.job_name;
         var jenkins = jenkinsapi.init(url);
+        var promises = [];
         jenkins.job_info(job, function(err, data) {
             if (err){ return console.log(err); }
-            // sails.log(data);
             return res.json({
                 notice: 'Success',
                 apiData: data
@@ -99,9 +99,36 @@ var JenkinsapisController = {
         var jenkins = jenkinsapi.init(url);
         jenkins.build_info(job, build, function(err, data) {
             if (err){ return console.log(err); }
-            sails.log(data);
             return res.json({
                 notice: 'Success',
+                apiData: data
+            });
+        });
+    },
+    buildOutput: function(req, res) {
+        var params = req.params.all();
+        var url = params.url;
+        var job = params.job_name;
+        var build = params.build_number
+        var jenkins = jenkinsapi.init(url);
+        jenkins.job_output(job, build, function(err, data) {
+            if (err){ return console.log(err); }
+            return res.json({
+                notice: 'Success',
+                apiData: data
+            });
+        });
+    },
+    startBuild: function(req, res) {
+        var params = req.params.all();
+        var url = params.url;
+        var job = params.job_name;
+        var build = params.build_number
+        var jenkins = jenkinsapi.init(url);
+        jenkins.build(job, function(err, data) {
+            if (err){ return console.log(err); }
+            return res.json({
+                notice: 'Job Started',
                 apiData: data
             });
         });

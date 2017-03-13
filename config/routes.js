@@ -60,6 +60,16 @@ module.exports.routes = {
     action        : 'buildInfo',
     policy: 'sessionAuth'
   },
+  'post /jenkins/job/build/start': {
+    controller    : 'Jenkinsapis',
+    action        : 'startBuild',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/job/build/output': {
+    controller    : 'Jenkinsapis',
+    action        : 'buildOutput',
+    policy: 'sessionAuth'
+  },
   'get /session/validate': {
     controller    : 'Session',
     action        : 'validate',

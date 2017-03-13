@@ -3,7 +3,7 @@ function setCookie(cname, cvalue, exdays) {
     // cname=username cvalue=myusername exdays=#ofdays
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires="+d.toUTCString();
+    var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 function checkCookie(cookieName) {
@@ -17,7 +17,7 @@ function checkCookie(cookieName) {
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
@@ -34,22 +34,22 @@ function divConsoleAlert(type, jumbo, content) {
     $('#management-alert').removeClass('alert-success').removeClass('alert-info').removeClass('alert-warning').removeClass('alert-danger');
     $('#management-alert').addClass(type);
     $('#management-alert').fadeIn(1000);
-    $('#alert-content').html('<strong>'+jumbo+'</strong> '+ content);
+    $('#alert-content').html('<strong>' + jumbo + '</strong> ' + content);
 }
 function consoleAjaxCmd(method, resturl, ajaxdata, success_call) {
-     $.ajax({
+    $.ajax({
         type: method,
         url: resturl,
         data: ajaxdata,
         success: success_call,
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            divConsoleAlert('alert-danger', textStatus.toUpperCase()+': ', errorThrown);
-         }
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            divConsoleAlert('alert-danger', textStatus.toUpperCase() + ': ', errorThrown);
+        }
     });
 }
 function divState(page_display) {
     $('#console-wrapper').children().hide()
-    switch(page_display) {
+    switch (page_display) {
         case 'set':
             $('#set-secret').show();
             break;
@@ -77,11 +77,11 @@ function checkState() {
                     divState('jenkins-hosts')
                     // User has a key and it's been stored so lets allow them access to jenkins api
                 } else {
-                // The user has a key so but has not set it so display page to set the key
+                    // The user has a key so but has not set it so display page to set the key
                     divState('provide')
                 }
             } else {
-            // The user has to set a secret key. Show page to set key
+                // The user has to set a secret key. Show page to set key
                 divState('set')
             }
         }
@@ -91,7 +91,7 @@ function checkState() {
 
 
 // HIDE ALERTS
-$('#close-alert').click(function() {
+$('#close-alert').click(function () {
     $(this).parent().fadeOut(1000);
 });
 
@@ -103,7 +103,7 @@ if (getUsername()) {
     $('#nav-logout').addClass('disabled').attr('disabled', true);
 }
 
-$('#loginForm').submit(function(e) {
+$('#loginForm').submit(function (e) {
     e.preventDefault();
     var formData = $(this).serialize();
     $.ajax({
@@ -113,9 +113,9 @@ $('#loginForm').submit(function(e) {
         success: function (msg, status, jqXHR) {
             location.href = '/'
         },
-         error: function(XMLHttpRequest, textStatus, errorThrown) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("Status: " + textStatus); alert("Error: " + errorThrown);
-         }
+        }
     });
 });
 
@@ -123,7 +123,7 @@ $('#loginForm').submit(function(e) {
 $('#h1-welcome-username').html(decodeURIComponent(getUsername()));
 
 // SET-SECRET
-$('#set-secret-key-form').submit(function(e) {
+$('#set-secret-key-form').submit(function (e) {
     e.preventDefault();
     var secretKey = $('#secret-key').val();
     var secretKeyConfirm = $('#secret-key-confirm').val();
@@ -132,7 +132,7 @@ $('#set-secret-key-form').submit(function(e) {
         var success = function (msg, status, jqXHR) {
             divConsoleAlert('alert-success', 'SUCCESS: ', msg.notice);
         }
-        consoleAjaxCmd('POST','/user/secret','secretKey='+secretKey, success);
+        consoleAjaxCmd('POST', '/user/secret', 'secretKey=' + secretKey, success);
         divState('provide')
     } else {
         divConsoleAlert('alert-danger', 'ERROR:', 'The keys do not match.');
@@ -140,7 +140,7 @@ $('#set-secret-key-form').submit(function(e) {
 });
 
 // provide-SECRET
-$('#provide-secret-key-form').submit(function(e) {
+$('#provide-secret-key-form').submit(function (e) {
     e.preventDefault();
     var secretKey = $('#provide-secret-key-input').val();
     var success = function (msg, status, jqXHR) {
@@ -151,17 +151,17 @@ $('#provide-secret-key-form').submit(function(e) {
             divConsoleAlert('alert-danger', 'ERROR:', 'You dont know your key!');
         }
     }
-    consoleAjaxCmd('POST','/user/secret/check','secretKey='+secretKey, success);
+    consoleAjaxCmd('POST', '/user/secret/check', 'secretKey=' + secretKey, success);
 });
 // ADD-JENKINS-HOST
-$('#add-jenkins-api-form').submit(function(e) {
+$('#add-jenkins-api-form').submit(function (e) {
     e.preventDefault();
     var formData = $(this).serialize();
     var success = function (msg, status, jqXHR) {
         divConsoleAlert('alert-success', 'SUCCESS: ', 'Jenkins host has been added');
         getUsersJenkinsAPIs();
     }
-    consoleAjaxCmd('POST','/jenkins/create',formData, success);
+    consoleAjaxCmd('POST', '/jenkins/create', formData, success);
     this.reset();
 });
 
@@ -174,8 +174,8 @@ function connectToJenkinsAPI(getType) {
             var apiKey = msg.plainTextAPIKey;
             var init_url = msg.url;
             init_url = init_url.split("/");
-            var complete_url = init_url[0]+'//'+username+':'+apiKey+'@'+init_url[2];
-            switch(getType) {
+            var complete_url = init_url[0] + '//' + username + ':' + apiKey + '@' + init_url[2];
+            switch (getType) {
                 case 'getJenkinsJobs':
                     getJenkinsJobs(complete_url);
                     break;
@@ -188,7 +188,7 @@ function connectToJenkinsAPI(getType) {
         }
     }
     var apiID = getCookie('apiID');
-    consoleAjaxCmd('POST','/jenkins/connect','apiID='+apiID, success);
+    consoleAjaxCmd('POST', '/jenkins/connect', 'apiID=' + apiID, success);
 }
 // GET-JENKINS-HOSTS
 function getUsersJenkinsAPIs() {
@@ -199,92 +199,129 @@ function getUsersJenkinsAPIs() {
             for (var i in user_apis.reverse()) {
                 var api = user_apis[i];
                 api.url = api.url.split("/");
-                template += '<li>'+ api.url[2] +'<ul id="'+ api.id +'" class="jenkins-host-list-options"><li class="connect-to-api">Connect</li><li class="destroy-api">Destroy</li></ul></li>'
+                template += '<li>' + api.url[2] + '<ul id="' + api.id + '" class="jenkins-host-list-options"><li class="connect-to-api">Connect</li><li class="destroy-api">Destroy</li></ul></li>'
             }
             $('#list-apis-jenkins').html(template);
         } else {
             $('#jenkins-host-verbiage').append('You haven\'t added any hosts. Please add one using the form');
         }
         // CONNECT to JENKINS$
-        $('.connect-to-api').click(function() {
-            connectToJenkinsAPI('getJenkinsJobs');
+        $('.connect-to-api').click(function () {
             setCookie('apiName', api.url[2]);
             setCookie('apiID', api.id);
+            connectToJenkinsAPI('getJenkinsJobs');
         });
 
     }
-    consoleAjaxCmd('GET','/jenkins','', success);
+    consoleAjaxCmd('GET', '/jenkins', '', success);
 }
 
 function getJenkinsJobs(complete_url) {
     var inside_success = function (msg, status, jqXHR) {
-        parseJenkinsJobs(msg.apiData);
+        parseJenkinsJobs(complete_url, msg.apiData);
         $('#add-jenkins-host-form-div').hide();
         $('#manage-jenkins-jobs-host-form-div').show();
     }
-    consoleAjaxCmd('POST', '/jenkins/jobs', 'url='+complete_url, inside_success);
+    consoleAjaxCmd('POST', '/jenkins/jobs', 'url=' + complete_url, inside_success);
 }
 
-function parseJenkinsJobs(data) {
+function parseJenkinsJobs(complete_url, data) {
     var apiID = getCookie('apiID');
-    var template = '<ul data-api="'+apiID+'" id="jenkins-jobs">'
+    var template = '<ul data-api="' + apiID + '" id="jenkins-jobs">'
     for (var i in data) {
         var job = data[i];
         var color = job.color;
-        switch(color) {
-            case 'red':
-                color = "#EF2929"
-                break;
-            case 'blue':
-                color = "#4E9A06"
-                break;
+        if (job.color !== undefined) {
+            switch (color) {
+                case 'red':
+                    color = "#EF2929"
+                    break;
+                case 'blue':
+                    color = "#4E9A06"
+                    break;
+                default:
+                    color = "#333"
             }
-        template += '<li class="jenkins-job" id="'+job.name+'" style="color:'+color+'">'+job.name+' <span style="display:none;">:: Builds</span><ul style="display:none"></ul></li>';
+            template += '<li class="jenkins-job" id="' + job.name + '" style="border-left:3px solid ' + color + '"><span>&rarr;</span><span style="display:none">&darr;</span>&nbsp;' + job.name + ' <span style="display:none;" class="builds_nav">&raquo; <em>Builds</em></span><button type="button" class="btn btn-primary btn-sm btn-build" style="display:none;">Build ' + job.name + '</button><ul style="display:none"></ul><textarea class="build-info-data" style="display:none"></textarea></li>';
+        }
     }
     template += '<ul>';
     $('#build-info').html(template);
-    $('.jenkins-job').click(function() {
+    $('.jenkins-job').click(function () {
         $(this).children().toggle();
+        $(this).children('.build-info-data').hide();
         setCookie('jobName', $(this).attr('id'));
         connectToJenkinsAPI('getJenkinsJobInfo')
+    });
+
+    $('.build-info-data').click(function (e) {
+        e.stopPropagation();
+    });
+
+    $('.btn-build').click(function (e) {
+        e.stopPropagation();
+        var jobName = $(this).parent().attr('id');
+        if (confirm('Are you sure you want to build: '+jobName+'?')){
+            $(this).prop("disabled",true);
+            var inside_success = function (msg, status, jqXHR) {
+            divConsoleAlert('alert-success', 'SUCCESS: ', msg.notice);
+            }
+                consoleAjaxCmd('POST', '/jenkins/job/build/start', 'url=' + complete_url + '&job_name=' + jobName, inside_success);
+        }
+        // connectToJenkinsAPI('getJenkinsJobInfo')
     });
 }
 
 function getJenkinsJobInfo(complete_url) {
     var jobName = getCookie('jobName');
     var inside_success = function (msg, status, jqXHR) {
-         parseJobInfo(msg.apiData, complete_url);
+        parseJobInfo(msg.apiData, complete_url);
     }
-    consoleAjaxCmd('POST', '/jenkins/job/info', 'url='+complete_url+'&job_name='+jobName, inside_success);
+    consoleAjaxCmd('POST', '/jenkins/job/info', 'url=' + complete_url + '&job_name=' + jobName, inside_success);
 }
 function parseJobInfo(data, complete_url) {
     var jobName = getCookie('jobName');
     var template = ''
-    for (var i in data.builds.reverse()) {
-        var build = data.builds[i];
-        template += '<li class="jenkins-build" data-url="'+complete_url+'" id="'+jobName+'_'+build.number+'">'+build.number+'</li>';
-    }
-    $('#'+jobName +' ul').html(template);
-    $('.jenkins-build').hover(function() {
-        console.log($(this).attr('id'));
-        if (!$(this).hasClass("check")) {
-            var id = $(this).attr('id')
-            var complete_url = $(this).data('url')
-            id = id.split('_')
-            var job = id[0];
-            var build = id[1];
-            checkBuildResult(complete_url, job, build);
+    var promises = [];
+    if (data.builds !== undefined) {
+        for (var i in data.builds.reverse()) {
+            var build = data.builds[i];
+            template += '<li class="jenkins-build" id="' + jobName + '_' + build.number + '">' + build.number + '</li>';
+            promises.push(checkBuildResult(complete_url, jobName, build.number));
         }
+    } else {
+        $('#' + jobName + ' .btn').addClass('disabled');
+    }
+    $('#' + jobName + ' ul').html(template);
+    $('.jenkins-build').click(function (e) {
+        e.stopPropagation();
+        var info = $(this).attr('id');
+        info = info.split('_');
+        getBuildOutput(complete_url, info[0], info[1]);
     });
+    if (data.buildable == undefined) {
+        $('#' + jobName + ' ul').hide();
+        $('#' + jobName + ' .builds_nav em').html('No builds to display');
+    }
+    Promise.all(promises)
+        .then((results) => {
+            for (var idx in results) {
+                var result = results[idx];
+                var job_info = result.split('_');
+                $('#' + job_info[0] + '_' + job_info[1]).addClass(job_info[2]);
+            }
+        })
+        .catch((e) => {
+            // Handle errors here
+        });
 }
 function checkBuildResult(complete_url, jobName, buildNumber) {
-    console.log('entered');
+    return new Promise((resolve) => {
         var inside_success = function (msg, status, jqXHR) {
             var build_data = msg.apiData;
-            console.log(build_data);
             var result = build_data.result;
             var build_class = "";
-            switch(result) {
+            switch (result) {
                 case 'SUCCESS':
                     build_class = "jenkins-build-success check"
                     break;
@@ -292,7 +329,21 @@ function checkBuildResult(complete_url, jobName, buildNumber) {
                     build_class = "jenkins-build-fail check"
                     break;
             }
-            $('#'+jobName+'_'+buildNumber).addClass(build_class);
+            var returnData = jobName + '_' + buildNumber + '_' + build_class;
+            resolve(returnData);
         }
-        consoleAjaxCmd('POST', '/jenkins/job/build/info', 'url='+complete_url+'&job_name='+jobName+'&build_number='+buildNumber, inside_success);
+        consoleAjaxCmd('POST', '/jenkins/job/build/info', 'url=' + complete_url + '&job_name=' + jobName + '&build_number=' + buildNumber, inside_success);
+    });
+}
+function getBuildOutput(complete_url, jobName, buildNumber) {
+    var inside_success = function (msg, status, jqXHR) {
+        var data = msg.apiData;
+        var id = jobName;
+        var li_id = jobName+'_'+buildNumber;
+        $('#'+li_id).parent().children().removeClass('jenkins-build-number-active');
+        $('#'+li_id).addClass('jenkins-build-number-active');
+        $('#'+id+' .build-info-data').show();
+        $('#'+id+' .build-info-data').html(data.output);
+    }
+    consoleAjaxCmd('POST', '/jenkins/job/build/output', 'url=' + complete_url + '&job_name=' + jobName + '&build_number=' + buildNumber, inside_success);
 }

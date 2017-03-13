@@ -82,7 +82,7 @@ body {
 }
 .jenkins-hosts .jenkins-host-list-options li {
     margin: 0;
-    padding: 0;
+    padding: 5px;
     display: inline-block;
     text-align: center;
     width: 50%;
@@ -119,7 +119,7 @@ body {
     padding:5px;
 }
 .jenkins-job {
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid #1b1b1b;
     padding: 5px;
     padding-bottom: 2px;
     margin-bottom: 5px;
@@ -132,6 +132,9 @@ body {
     background-color:#eee;
     color:#222;
     cursor: pointer;
+}
+.jenkins-build-number-active {
+    border-bottom: 1px solid #fff !important;
 }
 .jenkins-job ul{
     padding: 5px;
@@ -164,6 +167,26 @@ body {
 .jenkins-build-fail {
     border-left:3px solid #EF2929 !important;
 }
+.btn-build {
+    float: right;
+    line-height: 10px;
+    font-size: 0.8em;
+}
+.build-info-data {
+    font-size: 0.7em;
+    font-family: Consolas, monaco, monospace;
+    padding: 10px;
+    overflow: auto;
+    background-color: #fff;
+    color: #000;
+    border-left: 3px solid #000;
+    border-bottom: 3px solid #000;
+    margin-bottom: 3px;
+    display: block;
+    width: 100%;
+    height: 250px;
+
+}
 /* Let's get this party started */
 .scroll::-webkit-scrollbar {
     width: 5px;
@@ -181,8 +204,8 @@ body {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: rgba(186,189,182,0.9);
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    -webkit-box-shadow: inset 0 0 6px  rgba(254,254,254,1);;
 }
 .scroll::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(254,254,254,0.1);
+	background: rgba(254,254,254,0.8);
 }
