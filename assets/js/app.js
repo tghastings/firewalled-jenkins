@@ -284,7 +284,7 @@ function parseJobInfo(data, complete_url) {
     var template = ''
     var promises = [];
     if (data.builds !== undefined) {
-        for (var i in data.builds.reverse()) {
+        for (var i in data.builds) {
             var build = data.builds[i];
             template += '<li class="jenkins-build" id="' + jobName + '_' + build.number + '">' + build.number + '</li>';
             promises.push(checkBuildResult(complete_url, jobName, build.number));
