@@ -139,16 +139,25 @@ $('#set-secret-key-form').submit(function (e) {
     }
 });
 
+$('#forgot-key-btn').click(function () {
+    if (confirm('Are you sure you want to reset your key? This will remove all of your existing APIs.')){
+        var success = function (msg, status, jqXHR) {
+            divState('set');
+            divConsoleAlert('alert-success', 'SUCCESS: ', 'Your key has been removed');
+        }
+        consoleAjaxCmd('POST', '/jenkins/forgot', '', success);
+    }
+})
 // provide-SECRET
 $('#provide-secret-key-form').submit(function (e) {
     e.preventDefault();
     var secretKey = $('#provide-secret-key-input').val();
     var success = function (msg, status, jqXHR) {
         if (msg.notice == 'true') {
-            divConsoleAlert('alert-success', 'SUCCESS:', 'You know your key!');
+            divConsoleAlert('alert-success', 'SUCCESS:', 'Key validated');
             divState('jenkins-hosts');
         } else {
-            divConsoleAlert('alert-danger', 'ERROR:', 'You dont know your key!');
+            divConsoleAlert('alert-danger', 'ERROR:', 'The key you entered is not correct');
         }
     }
     consoleAjaxCmd('POST', '/user/secret/check', 'secretKey=' + secretKey, success);
@@ -175,6 +184,8 @@ function connectToJenkinsAPI(getType) {
             var init_url = msg.url;
             init_url = init_url.split("/");
             var complete_url = init_url[0] + '//' + username + ':' + apiKey + '@' + init_url[2];
+            console.log(complete_url);
+            console.log(init_url);
             switch (getType) {
                 case 'getJenkinsJobs':
                     getJenkinsJobs(complete_url);
@@ -194,22 +205,40 @@ function connectToJenkinsAPI(getType) {
 function getUsersJenkinsAPIs() {
     var success = function (msg, status, jqXHR) {
         var user_apis = msg.user[0].apis;
+        $('#list-apis-jenkins').html('');
         if (user_apis.length > 0) {
+            $('#jenkins-host-verbiage').html('');
             var template = '';
             for (var i in user_apis.reverse()) {
                 var api = user_apis[i];
                 api.url = api.url.split("/");
-                template += '<li>' + api.url[2] + '<ul id="' + api.id + '" class="jenkins-host-list-options"><li class="connect-to-api">Connect</li><li class="destroy-api">Destroy</li></ul></li>'
+                template += '<li>' + api.url[2] + '<ul id="' + api.id + '" class="jenkins-host-list-options"><li class="connect-to-api"><button type="button" class="btn btn-success btn-sm">Connect</button></li><li class="destroy-api"><button type="button" class="btn btn-danger btn-sm">Remove</button></li></ul></li>'
             }
             $('#list-apis-jenkins').html(template);
         } else {
-            $('#jenkins-host-verbiage').append('You haven\'t added any hosts. Please add one using the form');
+            $('#jenkins-host-verbiage').append('You haven\'t added any hosts. Please add one using the form on the right.');
         }
         // CONNECT to JENKINS$
         $('.connect-to-api').click(function () {
-            setCookie('apiName', api.url[2]);
-            setCookie('apiID', api.id);
+            var apiUrl = $(this).parents('li').text();
+            var apiID = $(this).parent().attr('id')
+            setCookie('apiName', apiUrl);
+            setCookie('apiID', apiID);
             connectToJenkinsAPI('getJenkinsJobs');
+        });
+        $('.destroy-api').click(function () {
+            if (confirm('Are you sure you want to remove the API?')){
+                var success = function (msg, status, jqXHR) {
+                    if (msg.notice == 'API Removed') {
+                        getUsersJenkinsAPIs();
+                        divConsoleAlert('alert-success', 'SUCCESS: ', 'The API has been removed');
+                    } else {
+                        divConsoleAlert('alert-danger', 'ERROR: ', 'You don\'t own that resource');
+                    }
+                }
+                var apiID = $(this).parent().attr('id')
+                consoleAjaxCmd('POST', '/jenkins/destroy', 'apiID=' + apiID, success);
+            }
         });
 
     }
@@ -221,6 +250,10 @@ function getJenkinsJobs(complete_url) {
         parseJenkinsJobs(complete_url, msg.apiData);
         $('#add-jenkins-host-form-div').hide();
         $('#manage-jenkins-jobs-host-form-div').show();
+        $('.disconnect-api-btn').click(function () {
+            $('#add-jenkins-host-form-div').show();
+            $('#manage-jenkins-jobs-host-form-div').hide();
+        });
     }
     consoleAjaxCmd('POST', '/jenkins/jobs', 'url=' + complete_url, inside_success);
 }
@@ -242,7 +275,7 @@ function parseJenkinsJobs(complete_url, data) {
                 default:
                     color = "#333"
             }
-            template += '<li class="jenkins-job" id="' + job.name + '" style="border-left:3px solid ' + color + '"><span>&rarr;</span><span style="display:none">&darr;</span>&nbsp;' + job.name + ' <span style="display:none;" class="builds_nav">&raquo; <em>Builds</em></span><button type="button" class="btn btn-primary btn-sm btn-build" style="display:none;">Build ' + job.name + '</button><ul style="display:none"></ul><textarea class="build-info-data" style="display:none"></textarea></li>';
+            template += '<li class="jenkins-job" id="' + job.name + '" style="border-left:3px solid ' + color + '"><span>&rarr;</span><span style="display:none">&darr;</span>&nbsp;' + job.name + ' <span style="display:none;" class="builds_nav">&raquo; <em>Builds</em></span><button type="button" class="btn btn-success btn-sm btn-build" style="display:none;">Build ' + job.name + '</button><button type="button" class="btn btn-primary btn-sm btn-refresh-builds" style="display:none;">Refresh Builds</button><ul style="display:none"></ul><textarea class="build-info-data" style="display:none"></textarea></li>';
         }
     }
     template += '<ul>';
@@ -251,6 +284,14 @@ function parseJenkinsJobs(complete_url, data) {
         $(this).children().toggle();
         $(this).children('.build-info-data').hide();
         setCookie('jobName', $(this).attr('id'));
+        connectToJenkinsAPI('getJenkinsJobInfo')
+    });
+
+    $('.refresh-api-btn').click(function () {
+        connectToJenkinsAPI('getJenkinsJobs')
+    });
+    $('.btn-refresh-builds').click(function (e) {
+        e.stopPropagation();
         connectToJenkinsAPI('getJenkinsJobInfo')
     });
 

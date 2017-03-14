@@ -45,6 +45,16 @@ module.exports.routes = {
     action        : 'connect',
     policy: 'sessionAuth'
   },
+  'post /jenkins/destroy': {
+    controller    : 'Jenkinsapis',
+    action        : 'destroy',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/forgot': {
+    controller    : 'Jenkinsapis',
+    action        : 'forgot',
+    policy: 'sessionAuth'
+  },
   'post /jenkins/jobs': {
     controller    : 'Jenkinsapis',
     action        : 'allJobs',

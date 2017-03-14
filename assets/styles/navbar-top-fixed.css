@@ -90,7 +90,6 @@ body {
     font-size: 0.85em;
     border-top: 1px solid #353535;
     margin-top: 5px;
-    cursor: pointer;
     display:none;
 }
 .jenkins-hosts .jenkins-host-list-options li:first-child {
@@ -172,6 +171,12 @@ body {
     line-height: 10px;
     font-size: 0.8em;
 }
+.btn-refresh-builds{
+    float: right;
+    line-height: 10px;
+    font-size: 0.8em;
+    margin-right:5px;
+}
 .build-info-data {
     font-size: 0.7em;
     font-family: Consolas, monaco, monospace;
@@ -186,6 +191,27 @@ body {
     width: 100%;
     height: 250px;
 
+}
+.refresh-api-btn {
+    line-height: 13px;
+    float: right;
+    margin-top: 2px;
+    margin-right:5px
+}
+.disconnect-api-btn {
+    line-height: 13px;
+    float: right;
+    margin-top: 2px
+}
+.back-link {
+    display: block;
+    line-height: 5px;
+    float: left;
+    margin-top: 14px;
+    margin-left: 5px;
+}
+.api-url {
+    float: left;
 }
 /* Let's get this party started */
 .scroll::-webkit-scrollbar {

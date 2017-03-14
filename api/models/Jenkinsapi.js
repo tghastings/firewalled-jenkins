@@ -11,6 +11,9 @@ module.exports = {
     apiKey: {
       type: 'string'
     },
+    user_id: {
+      type: 'string'
+    },
     url: {
       type: 'string'
     },
