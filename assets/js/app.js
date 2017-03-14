@@ -184,8 +184,6 @@ function connectToJenkinsAPI(getType) {
             var init_url = msg.url;
             init_url = init_url.split("/");
             var complete_url = init_url[0] + '//' + username + ':' + apiKey + '@' + init_url[2];
-            console.log(complete_url);
-            console.log(init_url);
             switch (getType) {
                 case 'getJenkinsJobs':
                     getJenkinsJobs(complete_url);
@@ -220,9 +218,9 @@ function getUsersJenkinsAPIs() {
         }
         // CONNECT to JENKINS$
         $('.connect-to-api').click(function () {
-            var apiUrl = $(this).parents('li').text();
+            var apiUrl = $(this).parents('li').text().split('ConnectRemove');
             var apiID = $(this).parent().attr('id')
-            setCookie('apiName', apiUrl);
+            setCookie('apiName', apiUrl[0]);
             setCookie('apiID', apiID);
             connectToJenkinsAPI('getJenkinsJobs');
         });

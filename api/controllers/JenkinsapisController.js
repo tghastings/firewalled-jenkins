@@ -6,6 +6,7 @@
  */
 var CryptoJS = require("crypto-js")
 var jenkinsapi = require('jenkins-api');
+var LdapAuth = require('ldapauth-fork');
 var JenkinsapisController = {
     index: function (req, res) {
         User.find({ uuid: req.cookies.token })

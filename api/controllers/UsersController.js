@@ -10,6 +10,16 @@
 //   var data = CryptoJS.AES.decrypt(strEncryptedEmail, 'secret key 123');
 //   var decryptData = data.toString(CryptoJS.enc.Utf8);
 var CryptoJS = require("crypto-js")
+var LdapAuth = require('ldapauth-fork');
+var config = {
+  ldap: {
+    url: "ldaps://ldap01.issinc.com",
+    adminDn: "cn=svc.adsync.bds,ou=users,ou=System Accounts,ou=iss,dc=issinc,dc=com",
+    adminPassword: "Bl@ckD00kSynk",
+    searchBase: "ou=iss,dc=issinc,dc=com",
+    searchFilter: "(samaccountname={{username}})",
+  }
+}
 function randomString(length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
@@ -22,33 +32,49 @@ var UsersController = {
          });
     },
     create: function(req, res){
-        var params = req.params.all()
-        // Check to see if user is already registered
-        User.find({email: params.email}).exec(function (error, found) {
-            if (found.length == 0) {
-                var token = randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-                // Only create a new user if one doesn't already exist
-                User.create({
-                    email: params.email,
-                    uuid: token,
-                }).exec(function (err,created){
-                    req.session.authenticated = true
-                    res.cookie('token', token);
-                    res.cookie('username', params.email);
-                    return res.json({
-                        notice: 'User created',
-                        username: params.email,
-                        uuid: token
-                    });
-                });
-            } else {
-                req.session.authenticated = true
-                res.cookie('token', found[0].uuid);
-                res.cookie('username', found[0].email);
-                return res.json({
-                    notice: 'Welcome back'
-                });
+        var ldap = new LdapAuth({
+            url: config.ldap.url,
+            adminDn: config.ldap.adminDn,
+            adminPassword: config.ldap.adminPassword,
+            searchBase: config.ldap.searchBase,
+            searchFilter: config.ldap.searchFilter,
+            //log4js: require('log4js'),
+            cache: false
+        });
+        var params = req.params.all();
+        var username = params.username;
+        var password = params.password;
+        ldap.authenticate(username, password, function (err, user) {
+            if (err) {
+                sails.log(err);
             }
+            // Check to see if user is already registered
+            User.find({email: user.mail}).exec(function (error, found) {
+                if (found.length == 0) {
+                    res.cookie('username', user.mail);
+                    var token = randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                    // Only create a new user if one doesn't already exist
+                    User.create({
+                        email: user.mail,
+                        uuid: token,
+                    }).exec(function (err,created){
+                        req.session.authenticated = true
+                        res.cookie('token', token);
+                        return res.json({
+                            notice: 'User created',
+                            username: params.email,
+                            uuid: token
+                        });
+                    });
+                } else {
+                    req.session.authenticated = true
+                    res.cookie('token', found[0].uuid);
+                    res.cookie('username', found[0].email);
+                    return res.json({
+                        notice: 'Welcome back'
+                    });
+                }
+            });
         });
     },
     secret: function(req, res){
