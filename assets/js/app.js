@@ -1,4 +1,6 @@
-// START Cookie Information
+/*
+    The code below is used to manipulate cookies
+*/
 function setCookie(cname, cvalue, exdays) {
     // cname=username cvalue=myusername exdays=#ofdays
     var d = new Date();
@@ -28,25 +30,49 @@ function getCookie(cname) {
     }
     return '';
 }
-// END COOKIE Information
+/*
+    divConsoleAlert is used to display messages along the management console window
+*/
 function divConsoleAlert(type, jumbo, content) {
     // alert-success, alert-info, alert-warning, alert-danger
     $('#management-alert').removeClass('alert-success').removeClass('alert-info').removeClass('alert-warning').removeClass('alert-danger');
     $('#management-alert').addClass(type);
     $('#management-alert').fadeIn(1000);
     $('#alert-content').html('<strong>' + jumbo + '</strong> ' + content);
+
+    // Listen for when the user closes the dialog window
+    $('#close-alert').click(function () {
+        $(this).parent().fadeOut(1000);
+    });
 }
+
+/*
+    consoleAjaxCmd is used to call ajax commands to APIs
+*/
 function consoleAjaxCmd(method, resturl, ajaxdata, success_call) {
     $.ajax({
-        type: method,
-        url: resturl,
-        data: ajaxdata,
-        success: success_call,
+        type: 'GET',
+        url: '/csrfToken',
+        success: function (msg, status, jqXHR) {
+            var csrf = '&_csrf=' + msg._csrf
+            $.ajax({
+                type: method,
+                url: resturl,
+                data: ajaxdata + csrf,
+                success: success_call,
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    divConsoleAlert('alert-danger', textStatus.toUpperCase() + ': ', errorThrown);
+                }
+            });
+        },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             divConsoleAlert('alert-danger', textStatus.toUpperCase() + ': ', errorThrown);
         }
     });
 }
+/*
+    divState is used to show/hide pages that should/should not be displayed during a refresh
+*/
 function divState(page_display) {
     $('#console-wrapper').children().hide()
     switch (page_display) {
@@ -61,13 +87,15 @@ function divState(page_display) {
             break;
     }
 }
-// GET USER Information
+/*
+    getUsername will return the username cookie value
+*/
 function getUsername() {
     return getCookie('username');
 }
-// END USER Information
-// MAIN
-// Check State onload
+/*
+    checkState will check the state of the user based on different parameters
+*/
 function checkState() {
     var success = function (msg, status, jqXHR) {
         if (msg.auth == 'true') {
@@ -88,18 +116,14 @@ function checkState() {
     }
     consoleAjaxCmd('GET', '/session/validate/', '', success)
 }
-
-
-// HIDE ALERTS
-$('#close-alert').click(function () {
-    $(this).parent().fadeOut(1000);
-});
-
-
-// LOGIN PAGE
+/*
+    The code below is for the login page.
+*/
 if (getUsername()) {
+    // The user is logged in. Enable the logout button
     $('#nav-logout').removeClass('disabled').removeAttr('disabled');
 } else {
+    // The user is not logged in. Disable the logout button
     $('#nav-logout').addClass('disabled').attr('disabled', true);
 }
 
@@ -119,7 +143,9 @@ $('#loginForm').submit(function (e) {
     });
 });
 
-// HOME PAGE
+/*
+    The code below is for the main content page
+*/
 $('#h1-welcome-username').html(decodeURIComponent(getUsername()));
 
 // SET-SECRET
@@ -206,13 +232,8 @@ function getUsersJenkinsAPIs() {
         $('#list-apis-jenkins').html('');
         if (user_apis.length > 0) {
             $('#jenkins-host-verbiage').html('');
-            var template = '';
-            for (var i in user_apis.reverse()) {
-                var api = user_apis[i];
-                api.url = api.url.split("/");
-                template += '<li>' + api.url[2] + '<ul id="' + api.id + '" class="jenkins-host-list-options"><li class="connect-to-api"><button type="button" class="btn btn-success btn-sm">Connect</button></li><li class="destroy-api"><button type="button" class="btn btn-danger btn-sm">Remove</button></li></ul></li>'
-            }
-            $('#list-apis-jenkins').html(template);
+            var template = window.JST['assets/templates/jenkinsHosts.ejs']({data: user_apis});
+            $('#jenkins-hosts-template').html(template);
         } else {
             $('#jenkins-host-verbiage').append('You haven\'t added any hosts. Please add one using the form on the right.');
         }
@@ -258,26 +279,12 @@ function getJenkinsJobs(complete_url) {
 
 function parseJenkinsJobs(complete_url, data) {
     var apiID = getCookie('apiID');
-    var template = '<ul data-api="' + apiID + '" id="jenkins-jobs">'
-    for (var i in data) {
-        var job = data[i];
-        var color = job.color;
-        if (job.color !== undefined) {
-            switch (color) {
-                case 'red':
-                    color = "#EF2929"
-                    break;
-                case 'blue':
-                    color = "#4E9A06"
-                    break;
-                default:
-                    color = "#333"
-            }
-            template += '<li class="jenkins-job" id="' + job.name + '" style="border-left:3px solid ' + color + '"><span>&rarr;</span><span style="display:none">&darr;</span>&nbsp;' + job.name + ' <span style="display:none;" class="builds_nav">&raquo; <em>Builds</em></span><button type="button" class="btn btn-success btn-sm btn-build" style="display:none;">Build ' + job.name + '</button><button type="button" class="btn btn-primary btn-sm btn-refresh-builds" style="display:none;">Refresh Builds</button><ul style="display:none"></ul><textarea class="build-info-data" style="display:none"></textarea></li>';
-        }
-    }
-    template += '<ul>';
-    $('#build-info').html(template);
+    $('#jenkins-host-verbiage').html('');
+    // Get the template /assets/templates/jenkinsHostJobs.js
+    var template = window.JST['assets/templates/jenkinsHostJobs.ejs']({data: data, api: apiID});
+    // Add template to page
+    $('#job-info').html(template);
+
     $('.jenkins-job').click(function () {
         $(this).children().toggle();
         $(this).children('.build-info-data').hide();

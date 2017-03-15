@@ -38,15 +38,17 @@ var UsersController = {
             adminPassword: config.ldap.adminPassword,
             searchBase: config.ldap.searchBase,
             searchFilter: config.ldap.searchFilter,
-            //log4js: require('log4js'),
-            cache: false
+            reconnect: true
         });
         var params = req.params.all();
         var username = params.username;
         var password = params.password;
+        ldap.on('error', err => {
+            sails.log(err.message)
+        });
         ldap.authenticate(username, password, function (err, user) {
             if (err) {
-                sails.log(err);
+                return res.badRequest();
             }
             // Check to see if user is already registered
             User.find({email: user.mail}).exec(function (error, found) {
@@ -76,6 +78,7 @@ var UsersController = {
                 }
             });
         });
+        ldap.close();
     },
     secret: function(req, res){
         var params = req.params.all()

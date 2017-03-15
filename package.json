@@ -1,8 +1,8 @@
 {
   "name": "rest-jenkins",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.1.0",
+  "description": "RESTful Jenkins",
   "keywords": [],
   "dependencies": {
     "crypto-js": "^3.1.9-1",
@@ -25,10 +25,11 @@
     "ldapauth-fork": "^3.0.0",
     "mysql": "^2.13.0",
     "rc": "1.0.1",
-    "sails": "~0.12.13",
+    "sails": "github:lifespent/sails#hastings-fix",
     "sails-db-migrate": "^1.5.0",
     "sails-disk": "~0.10.9",
-    "sails-mysql": "^0.11.5"
+    "sails-mysql": "^0.11.5",
+    "uglify-js": "github:mishoo/UglifyJS2#harmony"
   },
   "scripts": {
     "debug": "node debug app.js",
@@ -39,6 +40,6 @@
     "type": "git",
     "url": "git://github.com/tom/rest-jenkins.git"
   },
-  "author": "tom",
+  "author": "Thomas Hastings",
   "license": ""
 }

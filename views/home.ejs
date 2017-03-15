@@ -17,8 +17,8 @@
     <!-- SET SECRET-->
         <div id="set-secret" class="row api-class">
             <div class="col-md-3 set-secret-information">
-            <h3>Initial Setup</h3>
-            <p>Your account does not have an active secret key. A key is required to be set before continuing.</p>
+                <h3>Initial Setup</h3>
+                <p>Your account does not have an active secret key. A key is required to be set before continuing.</p>
             </div>
             <div class="col-md-6 secret-key-form">
                 <!-- Form Name -->
@@ -37,7 +37,6 @@
                     <input id="secret-key-confirm" name="secret-key-confir," type="text" placeholder="Confirm Secret Key" class="form-control input-md" required="">
                     <span class="help-block">Verify your secret key</span>
                     </div>
-
                     <!-- Button -->
                     <div class="form-group">
                         <button id="set-key-btn" class="btn btn-warning" action="submit">Submit</button>
@@ -76,11 +75,10 @@
     <!-- END PROVIDE SECRET -->
     <!-- JENKINS -->
         <div id="jenkins-hosts" class="row api-class jenkins-hosts" style="display:none;">
-            <div class="col-md-3 set-secret-information">
+            <div id="jenkins-hosts" class="col-md-3 set-secret-information">
             <h3>Jenkins Hosts</h3>
             <p id="jenkins-host-verbiage"></p>
-            <ul id="list-apis-jenkins" class="jenkins-host-list">
-            </ul>
+            <span id="jenkins-hosts-template"></span>
             </div>
             <div id="add-jenkins-host-form-div" class="col-md-6 secret-key-form">
                 <!-- Form Name -->
@@ -101,6 +99,7 @@
                         <label class="control-label" for="api-key">Jenkins Host API Key:</label>
                         <input id="provide-secret-key-input" name="apiKey" type="text" placeholder="API Key" class="form-control input-md" required="">
                         <span class="help-block">Your API key for the Jenkins host</span>
+
                     </div>
                     <!-- Button -->
                     <div class="form-group">
@@ -113,9 +112,8 @@
                 <h3 class="api-url"><span class="jenkins-jobs-api-url-name"></h3></span>
                 <span class="disconnect-api"><button type="button" class="btn btn-danger btn-sm disconnect-api-btn">Disconnect</button></span>
                 <span class="refresh-api"><button type="button" class="btn btn-primary btn-sm refresh-api-btn">Refresh Jobs</button></span>
-                <span class="jenkins-api-info scroll" id="build-info"></span>
+                <span class="jenkins-api-info scroll" id="job-info"></span>
             </div>
         </div>
-    <!-- END PROVIDE SECRET -->
     </div>
 </div>
