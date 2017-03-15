@@ -28,8 +28,7 @@
     "sails": "github:lifespent/sails#hastings-fix",
     "sails-db-migrate": "^1.5.0",
     "sails-disk": "~0.10.9",
-    "sails-mysql": "^0.11.5",
-    "uglify-js": "github:mishoo/UglifyJS2#harmony"
+    "sails-mysql": "^0.11.5"
   },
   "scripts": {
     "debug": "node debug app.js",
