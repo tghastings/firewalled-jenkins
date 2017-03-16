@@ -37,8 +37,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tom/rest-jenkins.git"
+    "url": "ssh://git@stash.issinc.com:7999/it/rest-jenkins.git"
   },
-  "author": "Thomas Hastings",
+  "author": "Thomas Hastings, Polaris Alpha",
   "license": ""
 }
