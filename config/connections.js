@@ -42,9 +42,9 @@ module.exports.connections = {
   ***************************************************************************/
   localMySqlServer: {
     adapter: 'sails-mysql',
-    host: process.env.mysql_host, // localhost
-    user: process.env.mysql_user,
-    password: process.env.mysql_password,
+    host: process.env.MYSQL_HOST, // localhost
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
     database: 'rest_jenkins'
   },
 
