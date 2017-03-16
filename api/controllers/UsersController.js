@@ -13,11 +13,11 @@ var CryptoJS = require("crypto-js")
 var LdapAuth = require('ldapauth-fork');
 var config = {
   ldap: {
-    url: process.env.ldap_url,
-    adminDn: process.env.ldap_adminDn,
-    adminPassword: process.env.ldap_password,
-    searchBase: process.env.ldap_searchBase,
-    searchFilter: "(samaccountname={{username}})",
+    url: process.env.ldap_url, // ldaps://ldap.example.com:636
+    adminDn: process.env.ldap_adminDn, // uid=myadminusername,ou=users,o=example.com
+    adminPassword: process.env.ldap_password, //password
+    searchBase: process.env.ldap_searchBase, //ou=users,o=example.com
+    searchFilter: "(samaccountname={{username}})" // (uid={{username}})
   }
 }
 function randomString(length, chars) {
