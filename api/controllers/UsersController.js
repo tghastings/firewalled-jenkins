@@ -13,10 +13,10 @@ var CryptoJS = require("crypto-js")
 var LdapAuth = require('ldapauth-fork');
 var config = {
   ldap: {
-    url: "ldaps://ldap01.issinc.com",
-    adminDn: "cn=svc.adsync.bds,ou=users,ou=System Accounts,ou=iss,dc=issinc,dc=com",
-    adminPassword: "Bl@ckD00kSynk",
-    searchBase: "ou=iss,dc=issinc,dc=com",
+    url: process.env.ldap_url,
+    adminDn: process.env.ldap_adminDn,
+    adminPassword: process.env.ldap_password,
+    searchBase: process.env.ldap_searchBase,
     searchFilter: "(samaccountname={{username}})",
   }
 }
