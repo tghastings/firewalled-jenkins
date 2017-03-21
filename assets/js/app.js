@@ -232,7 +232,7 @@ function getUsersJenkinsAPIs() {
         $('#list-apis-jenkins').html('');
         if (user_apis.length > 0) {
             $('#jenkins-host-verbiage').html('');
-            var template = window.JST['assets/templates/jenkinsHosts.ejs']({data: user_apis});
+            var template = window.JST['templates/jenkinsHosts.ejs']({data: user_apis});
             $('#jenkins-hosts-template').html(template);
         } else {
             $('#jenkins-host-verbiage').append('You haven\'t added any hosts. Please add one using the form on the right.');
@@ -281,7 +281,7 @@ function parseJenkinsJobs(complete_url, data) {
     var apiID = getCookie('apiID');
     $('#jenkins-host-verbiage').html('');
     // Get the template /assets/templates/jenkinsHostJobs.js
-    var template = window.JST['assets/templates/jenkinsHostJobs.ejs']({data: data, api: apiID});
+    var template = window.JST['templates/jenkinsHostJobs.ejs']({data: data, api: apiID});
     // Add template to page
     $('#job-info').html(template);
 
