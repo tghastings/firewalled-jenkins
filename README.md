@@ -1,5 +1,5 @@
 # a-RESTed Jenkins ![a-RESTed Jenkins](https://image.ibb.co/irqk1F/arrested_jenkins.jpg)
-A simple nodejs application that utilizes Jenkins' REST API which allows users to view build logs and kick off new builds for developers that work offsite and don't have access to the Jenkins build servers.
+A simple nodejs application that utilizes Jenkins' REST API which allows users to view build logs and kick off new builds. This is used primarily by developers that work offsite and can't access to the Jenkins build servers due to firewall restrictions.
 
 ## Getting Started
 
@@ -30,6 +30,7 @@ The following environment variables must be set:
 MYSQL_HOST=localhost  
 MYSQL_USER=root  
 MYSQL_PASSWORD=password  
+MYSQL_DATABASE=database  
 
 #### LDAP:
 LDAP_URL=ldaps://ldap.example.com:636  
