@@ -1,4 +1,4 @@
-# a-RESTed Jenkins <img src="https://s12.postimg.org/m3p65gicd/arrested_jenkins.jpg" style="display:inline; width:3%">
+# a-RESTed Jenkins <img src="https://image.ibb.co/irqk1F/arrested_jenkins.jpg" style="display:inline; width:3%">
 
 ## Getting Started
 
