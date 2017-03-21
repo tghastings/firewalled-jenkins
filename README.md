@@ -1,5 +1,5 @@
 # a-RESTed Jenkins ![a-RESTed Jenkins](https://image.ibb.co/irqk1F/arrested_jenkins.jpg)
-A simple nodejs application that utilizes Jenkins' REST API which allows users to view build logs and kick off new builds for developers that work offsite.
+A simple nodejs application that utilizes Jenkins' REST API which allows users to view build logs and kick off new builds for developers that work offsite and don't have access to the Jenkins build servers.
 
 ## Getting Started
 
