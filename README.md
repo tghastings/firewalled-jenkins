@@ -68,5 +68,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 Thank you to the following projects for providing elements for this project:
+* [crypto-js](https://github.com/brix/crypto-js) - Encryption Module
 * [node-ldapauth-fork](https://github.com/vesse/node-ldapauth-fork) - LDAP Authentication
 * [node-jenkins-api](https://github.com/jansepar/node-jenkins-api/) - Node Jenkins API
