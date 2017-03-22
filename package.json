@@ -39,6 +39,6 @@
     "type": "git",
     "url": "ssh://git@github.com:PolarisAlpha/firewalled-jenkins.git"
   },
-  "author": "Thomas Hastings, Polaris Alpha",
+  "author": "Polaris Alpha",
   "license": ""
 }
