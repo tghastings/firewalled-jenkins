@@ -46,10 +46,8 @@ node(js) app.js
 
 ## Production
 
-When running in production the application, by default, will utilize grunt. At the time of this writing grunt does not support ES6 functions, such as arrow functions, so you will need to tell the application not to use it.
-
 ```
-node(js) app.js --prod --no-grunt
+node(js) app.js --prod
 ```
 
 ## Built With
