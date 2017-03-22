@@ -37,7 +37,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "ssh://git@stash.issinc.com:7999/it/rest-jenkins.git"
+    "url": "ssh://git@github.com:PolarisAlpha/firewalled-jenkins.git"
   },
   "author": "Thomas Hastings, Polaris Alpha",
   "license": ""
