@@ -41,13 +41,13 @@ LDAP_SEARCHBASE=ou=users,o=example.com
 ## Development
 
 ```
-node(js) app.js
+node app.js
 ```
 
 ## Production
 
 ```
-node(js) app.js --prod
+node app.js --prod
 ```
 
 ## Built With
