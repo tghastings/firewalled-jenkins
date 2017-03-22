@@ -1,8 +1,8 @@
 {
-  "name": "rest-jenkins",
+  "name": "firewalled-jenkins",
   "private": true,
   "version": "0.1.0",
-  "description": "RESTful Jenkins",
+  "description": "Firewalled Jenkins",
   "keywords": [],
   "dependencies": {
     "crypto-js": "^3.1.9-1",
