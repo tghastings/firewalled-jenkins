@@ -4,11 +4,6 @@
  * @description :: Server-side logic for managing users
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */;
-// sails.log('Plaintext: ' + params.email);
-// sails.log('Encrypted: ' + strEncryptedEmail);
-// sails.log('Decrypted: ' + decryptData);
-//   var data = CryptoJS.AES.decrypt(strEncryptedEmail, 'secret key 123');
-//   var decryptData = data.toString(CryptoJS.enc.Utf8);
 var CryptoJS = require("crypto-js")
 var LdapAuth = require('ldapauth-fork');
 var config = {
