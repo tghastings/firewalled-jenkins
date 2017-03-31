@@ -14,6 +14,9 @@ nodejs: ">=6.9"
 npm: ">=3.10.10"
 MySQL ">=5.5"
 ```
+if you want to run your mysql from a docker container you can use this command:
+
+    docker run -d -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=database -p 3306:3306 mysql
 
 ### Installing
 
@@ -27,16 +30,18 @@ npm install
 The following environment variables must be set:
 
 #### Database (MySQL):
-MYSQL_HOST=localhost  
-MYSQL_USER=root  
-MYSQL_PASSWORD=password  
-MYSQL_DATABASE=database  
+
+    MYSQL_HOST=localhost
+    MYSQL_USER=root
+    MYSQL_PASSWORD=password
+    MYSQL_DATABASE=database
 
 #### LDAP:
-LDAP_URL=ldaps://ldap.example.com:636  
-LDAP_ADMINDN=uid=myadminusername,ou=users,o=example.com  
-LDAP_PASSWORD=myadminsuserpassword  
-LDAP_SEARCHBASE=ou=users,o=example.com  
+
+    LDAP_URL=ldaps://ldap.example.com:636
+    LDAP_ADMINDN=uid=myadminusername,ou=users,o=example.com
+    LDAP_PASSWORD=myadminsuserpassword
+    LDAP_SEARCHBASE=ou=users,o=example.com
 
 ## Development
 
