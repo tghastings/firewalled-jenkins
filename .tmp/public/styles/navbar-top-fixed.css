@@ -109,7 +109,6 @@ body {
 .jenkins-api-info {
     display:block;
     float:left;
-    max-height:500px;
     overflow-x:hidden;
     overflow-y: scroll;
     width:100%;
