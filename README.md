@@ -30,6 +30,7 @@ npm install
 The following environment variables must be set:
 
 ### Jenkins
+
     JENKINS_VIEW=name_of_the_view_with_all_builds
 
 #### Database (MySQL):
@@ -74,7 +75,8 @@ node app.js --prod
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
-Thank you to the following projects for providing elements for this project:
+Thank you to the following individuals/projects for providing elements for this project:
+* [David Morse](https://github.com/dsmorse) - Build / Deployment Support
 * [crypto-js](https://github.com/brix/crypto-js) - Encryption Module
 * [node-ldapauth-fork](https://github.com/vesse/node-ldapauth-fork) - LDAP Authentication
 * [node-jenkins-api](https://github.com/jansepar/node-jenkins-api/) - Node Jenkins API

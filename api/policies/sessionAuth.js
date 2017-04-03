@@ -17,5 +17,12 @@ module.exports = function(req, res, next) {
 
   // User is not allowed
   // (default res.forbidden() behavior can be overridden in `config/403.js`)
+  res.clearCookie('username');
+  res.clearCookie('token');
+  res.clearCookie('uuid');
+  res.clearCookie('stored_key');
+  res.clearCookie('jobName');
+  res.clearCookie('apiName');
+  res.clearCookie('apiID');
   return res.redirect('/login');
 };
