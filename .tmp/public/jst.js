@@ -10,7 +10,15 @@ __p += '<ul data-api="' +
 '" id="jenkins-jobs">\n';
     for (var i in data) {
         var job = data[i];
-        var color = job.color;
+        var color = job.color
+
+        var url = job.url;
+        var split_url = url.split('/');
+        var job_id = split_url[4];
+        if (split_url.length >= 7) {
+            job_id = split_url[4] + '_job_' + split_url[6];
+            job.name = split_url[4] + ' &raquo; ' + job.name;
+        }
         if (job.color !== undefined) {
             switch (color) {
                 case 'red':
@@ -24,7 +32,7 @@ __p += '<ul data-api="' +
             }
 ;
 __p += '\n            <li class="jenkins-job" id="' +
-((__t = (job.name)) == null ? '' : __t) +
+((__t = (job_id)) == null ? '' : __t) +
 '" style="border-left:3px solid ' +
 ((__t = (color )) == null ? '' : __t) +
 '">\n                <span>&rarr;</span><span style="display:none">&darr;</span>&nbsp; ' +

@@ -109,7 +109,7 @@ var JenkinsapisController = {
         var params = req.params.all();
         var url = params.url;
         var jenkins = jenkinsapi.init(url);
-        jenkins.all_jobs(function (err, data) {
+        jenkins.all_jobs_in_view('ZZZ%20ALL', function(err, data) {
             if (err) {
                 return res.badRequest();
              }
@@ -124,6 +124,7 @@ var JenkinsapisController = {
         var params = req.params.all();
         var url = params.url;
         var job = params.job_name;
+        job = job.replace(/_/g, "/")
         var jenkins = jenkinsapi.init(url);
         var promises = [];
         jenkins.job_info(job, function (err, data) {

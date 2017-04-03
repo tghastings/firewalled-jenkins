@@ -1,7 +1,15 @@
 <ul data-api="<%=api %>" id="jenkins-jobs">
 <%    for (var i in data) {
         var job = data[i];
-        var color = job.color;
+        var color = job.color
+
+        var url = job.url;
+        var split_url = url.split('/');
+        var job_id = split_url[4];
+        if (split_url.length >= 7) {
+            job_id = split_url[4] + '_job_' + split_url[6];
+            job.name = split_url[4] + ' &raquo; ' + job.name;
+        }
         if (job.color !== undefined) {
             switch (color) {
                 case 'red':
@@ -14,7 +22,7 @@
                     color = "#333"
             }
 %>
-            <li class="jenkins-job" id="<%=job.name%>" style="border-left:3px solid <%=color %>">
+            <li class="jenkins-job" id="<%=job_id%>" style="border-left:3px solid <%=color %>">
                 <span>&rarr;</span><span style="display:none">&darr;</span>&nbsp; <%=job.name %>
                 <span style="display:none;" class="builds_nav">&raquo; <em>Builds</em></span>
                 <button type="button" class="btn btn-success btn-sm btn-build" style="display:none;">Build <%=job.name %></button>
