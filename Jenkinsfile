@@ -28,7 +28,7 @@ node () {
 
     stage ('publish'){
       sh '''
-        PACKAGE_VERSION = $(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')
+        PACKAGE_VERSION=$(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')
         # check in bumped version number
         git add package.json
         git commit -m "Jenkins build: ${PACKAGE_VERSION}"
