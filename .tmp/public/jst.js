@@ -13,12 +13,23 @@ __p += '<ul data-api="' +
         var color = job.color
 
         var url = job.url;
-        var split_url = url.split('/');
-        var job_id = split_url[4];
-        if (split_url.length >= 7) {
-            job_id = split_url[4] + '_job_' + split_url[6];
-            job.name = split_url[4] + ' &raquo; ' + job.name;
+        var split_array = url.split('/job/');
+        var path = [];
+        do {
+            path.push(split_array.pop());
         }
+        while (split_array.length > 1);
+        var cleanPath = path.reverse();
+        var i = cleanPath.length - 1;
+        cleanPath[i] = cleanPath[i].replace(/\//g,'');
+        cleanPathUrl = cleanPath.join('/job/')
+        cleanPathID = cleanPath.join('_job_')
+        cleanPathID = cleanPathID.replace(/%20/g,'SPACE');
+        cleanPathID = cleanPathID.replace(/\(/g,'OPEN_PARA');
+        cleanPathID = cleanPathID.replace(/\)/g,'CLOSE_PARA');
+        cleanPathName = cleanPath.join(' &raquo; ')
+        cleanPathName = cleanPathName.replace(/%20/g,' ');
+
         if (job.color !== undefined) {
             switch (color) {
                 case 'red':
@@ -32,11 +43,11 @@ __p += '<ul data-api="' +
             }
 ;
 __p += '\n            <li class="jenkins-job" id="' +
-((__t = (job_id)) == null ? '' : __t) +
+((__t = (cleanPathID)) == null ? '' : __t) +
 '" style="border-left:3px solid ' +
 ((__t = (color )) == null ? '' : __t) +
 '">\n                <span>&rarr;</span><span style="display:none">&darr;</span>&nbsp; ' +
-((__t = (job.name )) == null ? '' : __t) +
+((__t = (cleanPathName )) == null ? '' : __t) +
 '\n                <span style="display:none;" class="builds_nav">&raquo; <em>Builds</em></span>\n                <button type="button" class="btn btn-success btn-sm btn-build" style="display:none;">Build ' +
 ((__t = (job.name )) == null ? '' : __t) +
 '</button>\n                <button type="button" class="btn btn-primary btn-sm btn-refresh-builds" style="display:none;">Refresh Builds</button>\n                <ul style="display:none"></ul>\n                <textarea class="build-info-data" style="display:none"></textarea>\n            </li>\n';

@@ -320,7 +320,6 @@ function parseJenkinsJobs(complete_url, data) {
     $('.btn-build').click(function (e) {
         e.stopPropagation();
         var jobName = $(this).parent().attr('id');
-        var jobName_url = jobName.replace(/_/g, '/');
         console.log(jobName_url);
         if (confirm('Are you sure you want to build: ' + jobName + '?')) {
             $(this).prop("disabled", true);
@@ -335,7 +334,6 @@ function parseJenkinsJobs(complete_url, data) {
 
 function getJenkinsJobInfo(complete_url) {
     var jobName = getCookie('jobName');
-    jobName = jobName.replace(/_/g, '/');
 
     var inside_success = function inside_success(msg, status, jqXHR) {
         parseJobInfo(msg.apiData, complete_url);
@@ -345,14 +343,13 @@ function getJenkinsJobInfo(complete_url) {
 }
 function parseJobInfo(data, complete_url) {
     var jobName = getCookie('jobName');
-    var jobName_url = jobName.replace(/_/g, '/');
     var template = '';
     var promises = [];
     if (data.builds !== undefined) {
         for (var i in data.builds) {
             var build = data.builds[i];
             template += '<li class="jenkins-build" id="' + jobName+'_'+build.number + '" data-toggle="tooltip" data-placement="top" title="">' + build.number + '</li>';
-            promises.push(checkBuildResult(complete_url, jobName_url, build.number));
+            promises.push(checkBuildResult(complete_url, jobName, build.number));
         }
     } else {
         $('#' + jobName + ' .btn').addClass('disabled');
@@ -371,8 +368,7 @@ function parseJobInfo(data, complete_url) {
     Promise.all(promises).then(function (results) {
         for (var idx in results) {
             var result = results[idx];
-            var job_info = result.split('_');
-            job_info[0] = job_info[0].replace(/\//g, '_')
+            var job_info = result.split('BREAK');
             $('#' + job_info[0] + '_' + job_info[1]).addClass(job_info[2]);
             $('#' + job_info[0] + '_' + job_info[1]).prop('title', job_info[3]);
         }
@@ -382,7 +378,6 @@ function parseJobInfo(data, complete_url) {
     });
 }
 function checkBuildResult(complete_url, jobName, buildNumber) {
-    var jobName_url = jobName.replace(/_/g, '/');
     return new Promise(function (resolve) {
         var inside_success = function inside_success(msg, status, jqXHR) {
             var build_data = msg.apiData;
@@ -400,14 +395,13 @@ function checkBuildResult(complete_url, jobName, buildNumber) {
                     build_class = "jenkins-build-unstable check";
                     break;
             }
-            var returnData = jobName + '_' + buildNumber + '_' + build_class + '_' + run_date;
+            var returnData = jobName + 'BREAK' + buildNumber + 'BREAK' + build_class + 'BREAK' + run_date;
             resolve(returnData);
         };
-        consoleAjaxCmd('POST', '/jenkins/job/build/info', 'url=' + complete_url + '&job_name=' + jobName_url + '&build_number=' + buildNumber, inside_success);
+        consoleAjaxCmd('POST', '/jenkins/job/build/info', 'url=' + complete_url + '&job_name=' + jobName + '&build_number=' + buildNumber, inside_success);
     });
 }
 function getBuildOutput(complete_url, jobName, buildNumber) {
-    var jobName_url = jobName.replace(/_/g, '/');
     var inside_success = function inside_success(msg, status, jqXHR) {
         var data = msg.apiData;
         var id = jobName;
@@ -417,5 +411,5 @@ function getBuildOutput(complete_url, jobName, buildNumber) {
         $('#' + id + ' .build-info-data').show();
         $('#' + id + ' .build-info-data').html(data.output);
     };
-    consoleAjaxCmd('POST', '/jenkins/job/build/output', 'url=' + complete_url + '&job_name=' + jobName_url + '&build_number=' + buildNumber, inside_success);
+    consoleAjaxCmd('POST', '/jenkins/job/build/output', 'url=' + complete_url + '&job_name=' + jobName + '&build_number=' + buildNumber, inside_success);
 }

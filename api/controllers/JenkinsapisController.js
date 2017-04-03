@@ -7,6 +7,13 @@
 var CryptoJS = require("crypto-js")
 var jenkinsapi = require('jenkins-api');
 var LdapAuth = require('ldapauth-fork');
+function checkJobString(job) {
+    job = job.replace(/OPEN_PARA/g, "(");
+    job = job.replace(/CLOSE_PARA/g, ")");
+    job = job.replace(/_/g, "/");
+    job = job.replace(/SPACE/g, "%20");
+    return job;
+}
 var JenkinsapisController = {
     index: function (req, res) {
         User.find({ uuid: req.cookies.token })
@@ -123,8 +130,9 @@ var JenkinsapisController = {
         // API Token
         var params = req.params.all();
         var url = params.url;
-        var job = params.job_name;
-        job = job.replace(/_/g, "/")
+        var job = checkJobString(params.job_name);
+        job = job.replace(/_/g, "/");
+        job = job.replace(/SPACE/g, "%20");
         var jenkins = jenkinsapi.init(url);
         var promises = [];
         jenkins.job_info(job, function (err, data) {
@@ -139,7 +147,9 @@ var JenkinsapisController = {
         // API Token
         var params = req.params.all();
         var url = params.url;
-        var job = params.job_name;
+        var job = checkJobString(params.job_name);
+        job = job.replace(/_/g, "/");
+        job = job.replace(/SPACE/g, "%20");
         var build = params.build_number
         var jenkins = jenkinsapi.init(url);
         jenkins.build_info(job, build, function (err, data) {
@@ -153,8 +163,8 @@ var JenkinsapisController = {
     buildOutput: function (req, res) {
         var params = req.params.all();
         var url = params.url;
-        var job = params.job_name;
         var build = params.build_number
+        var job = checkJobString(params.job_name);
         var jenkins = jenkinsapi.init(url);
         jenkins.job_output(job, build, function (err, data) {
             if (err) { return console.log(err); }
@@ -167,7 +177,7 @@ var JenkinsapisController = {
     startBuild: function (req, res) {
         var params = req.params.all();
         var url = params.url;
-        var job = params.job_name;
+        var job = checkJobString(params.job_name);
         var build = params.build_number
         var jenkins = jenkinsapi.init(url);
         jenkins.build(job, function (err, data) {
