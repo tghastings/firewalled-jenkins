@@ -29,6 +29,9 @@ npm install
 ### Environment Variables
 The following environment variables must be set:
 
+### Jenkins
+    JENKINS_VIEW=name_of_the_view_with_all_builds
+
 #### Database (MySQL):
 
     MYSQL_HOST=localhost

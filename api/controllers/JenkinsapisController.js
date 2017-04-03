@@ -116,7 +116,7 @@ var JenkinsapisController = {
         var params = req.params.all();
         var url = params.url;
         var jenkins = jenkinsapi.init(url);
-        jenkins.all_jobs_in_view('ZZZ%20ALL', function(err, data) {
+        jenkins.all_jobs_in_view(process.env.JENKINS_VIEW, function(err, data) {
             if (err) {
                 return res.badRequest();
              }
