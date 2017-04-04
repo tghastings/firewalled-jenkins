@@ -57,4 +57,10 @@ try {
 
 
 // Start server
-sails.lift(rc('sails'));
+var args = process.argv.slice(2);
+if (args.indexOf('--no-grunt') != -1) {
+    // console.log('Running with --no-grunt switch');
+    sails.lift(rc('sails', {hooks: {grunt: false}}));
+} else {
+    sails.lift(rc('sails'))
+}

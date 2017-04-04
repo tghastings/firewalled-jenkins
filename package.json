@@ -1,14 +1,15 @@
 {
-  "name": "rest-jenkins",
+  "name": "firewalled-jenkins",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.1.6",
+  "description": "Firewalled Jenkins",
   "keywords": [],
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "db-migrate": "^0.10.0-beta.20",
     "ejs": "2.3.4",
     "grunt": "^1.0.1",
+    "grunt-bump": "^0.8.0",
     "grunt-contrib-clean": "1.0.0",
     "grunt-contrib-coffee": "1.0.0",
     "grunt-contrib-concat": "1.0.1",
@@ -21,9 +22,11 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
+    "jenkins-api": "^0.2.8",
+    "ldapauth-fork": "^3.0.0",
     "mysql": "^2.13.0",
     "rc": "1.0.1",
-    "sails": "~0.12.13",
+    "sails": "github:lifespent/sails#hastings-fix",
     "sails-db-migrate": "^1.5.0",
     "sails-disk": "~0.10.9",
     "sails-mysql": "^0.11.5"
@@ -35,8 +38,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tom/rest-jenkins.git"
+    "url": "ssh://git@github.com:PolarisAlpha/firewalled-jenkins.git"
   },
-  "author": "tom",
-  "license": ""
+  "author": "Polaris Alpha",
+  "license": "MIT"
 }

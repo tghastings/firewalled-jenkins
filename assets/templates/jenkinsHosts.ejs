@@ -1,0 +1,14 @@
+<ul id="list-apis-jenkins" class="jenkins-host-list">
+<%
+    for (var i in data.reverse()) {
+        var api = data[i]
+        api.url = api.url.split("/")
+%>
+        <li><%=api.url[2] %>
+            <ul id="<%=api.id %>" class="jenkins-host-list-options">
+                <li class="connect-to-api"><button type="button" class="btn btn-success btn-sm">Connect</button></li>
+                <li class="destroy-api"><button type="button" class="btn btn-danger btn-sm">Remove</button></li>
+            </ul>
+        </li>
+    <% } %>
+</ul>

@@ -1,0 +1,275 @@
+/* Show it is fixed to the top */
+body {
+  padding-top: 4.5rem !important;
+}
+.secret-key-form {
+    padding: 10px;
+}
+.secret-key-form .help-block{
+      font-size: 0.7em;
+}
+.secret-key-form .form-group{
+      border-bottom: 1px solid #efefef;
+}
+.secret-key-form .form-group:last-child{
+      border-bottom:none;
+}
+.api-class {
+    border-right:  2px solid #fefefe;
+    border-bottom: 2px solid #fefefe;
+    border-left:   2px solid  #fefefe;
+    background-color: #292B2C;
+    min-height: 500px;
+    border-radius: 0px 0px 7px 7px;
+    color: #fefefe
+}
+.api-class-header {
+    border-right:  2px solid #fefefe;
+    border-top:    2px solid #fefefe;
+    border-bottom:    2px solid #333;
+    border-left:   2px solid  #fefefe;
+    background-color: #fefefe;
+    border-radius: 7px 7px 0px 0px;
+    color: #292B2C;
+    box-shadow: 1px 1px 50px #292B2C;
+}
+.set-secret-information {
+    padding-top: 10px;
+    background-color: #222
+}
+.api-class-header .alert{
+    line-height: 24px;
+    width: 101%;
+    margin: 0;
+    margin-top: 2px;
+    padding: 5px;
+}
+.close-button {
+    text-align: center;
+    display: inline-block;
+    float: right;
+    font-weight: bolder;
+    padding: 1px;
+    cursor: pointer;
+}
+.btn {
+    cursor: pointer;
+}
+.jenkins-hosts ul {
+    padding:0;
+    margin:0;
+    display:block;
+    float:left;
+    width:100%;
+    list-style:none;
+}
+.jenkins-hosts .jenkins-host-list li {
+    margin: 0;
+    display: block;
+    float: left;
+    width: 100%;
+    background-color: #292B2C;
+    padding: 5px;
+    border-bottom: 1px solid #353535;
+    font-size: 0.95em;
+    text-align: center;
+    cursor: pointer;
+}
+.jenkins-host-list li:hover {
+    background-color:#191919;
+    border-bottom:1px solid #eee;
+    border-top:1px solid #eee;
+}
+.jenkins-hosts .jenkins-host-list-options li {
+    margin: 0;
+    padding: 5px;
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+    border: none;
+    font-size: 0.85em;
+    border-top: 1px solid #353535;
+    margin-top: 5px;
+    display:none;
+}
+.jenkins-hosts .jenkins-host-list-options li:first-child {
+    border-right: 1px solid #353535;
+    color:#00FF00;
+}
+.jenkins-hosts .jenkins-host-list-options li:last-child {
+    color:#FF0000;
+}
+.jenkins-hosts .jenkins-host-list-options li:hover {
+    background-color:#292B2C !important;
+}
+.jenkins-host-list li:hover .jenkins-host-list-options li {
+    display: block;
+    background-color:#191919;
+}
+.jenkins-api-info {
+    display:block;
+    float:left;
+    overflow-x:hidden;
+    overflow-y: scroll;
+    width:100%;
+    border-radius: 10px;
+    background-color: #191919;
+    padding:5px;
+}
+.jenkins-job {
+    border-bottom: 1px solid #1b1b1b;
+    padding: 5px;
+    padding-bottom: 2px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    display:block;
+    float:left;
+    width:100%
+}
+.jenkins-job:hover{
+    background-color:#eee;
+    color:#222;
+    cursor: pointer;
+}
+.jenkins-build-number-active {
+    border-bottom: 1px solid #fff !important;
+}
+.jenkins-job ul{
+    padding: 5px;
+    padding-bottom: 2px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    background-color:#222;
+    color:#eee;
+}
+.jenkins-job li{
+    border-left:3px solid #222;
+    background-color: #191919;
+    border-bottom: 1px solid #333;
+    padding-left: 2px;
+    margin: 2px;
+    display:inline-block;
+    width: 62px;
+    text-align: left;
+}
+.jenkins-job li:hover{
+    color:#eee;
+    cursor: pointer;
+    border-left:3px solid #eee;
+    background-color:#191919;
+    border-bottom:1px solid #eee;
+}
+.jenkins-build-success {
+     border-left:3px solid #4E9A06 !important;
+}
+.jenkins-build-fail {
+    border-left:3px solid #EF2929 !important;
+}
+.jenkins-build-unstable {
+    border-left:3px solid #EFE029 !important;
+}
+.btn-build {
+    float: right;
+    line-height: 10px;
+    font-size: 0.8em;
+}
+.btn-refresh-builds{
+    float: right;
+    line-height: 10px;
+    font-size: 0.8em;
+    margin-right:5px;
+}
+.build-info-data {
+    font-size: 0.7em;
+    font-family: Consolas, monaco, monospace;
+    padding: 10px;
+    overflow: auto;
+    background-color: #fff;
+    color: #000;
+    border-left: 3px solid #000;
+    border-bottom: 3px solid #000;
+    margin-bottom: 3px;
+    display: block;
+    width: 100%;
+    height: 800px;
+
+}
+.refresh-api-btn {
+    line-height: 13px;
+    float: right;
+    margin-top: 2px;
+    margin-right:5px
+}
+.disconnect-api-btn {
+    line-height: 13px;
+    float: right;
+    margin-top: 2px
+}
+.back-link {
+    display: block;
+    line-height: 5px;
+    float: left;
+    margin-top: 14px;
+    margin-left: 5px;
+}
+.api-url {
+    float: left;
+}
+#nav-logout {
+    color:#888;
+}
+#nav-logout:hover{
+    color:#777;
+}
+/* Let's get this party started */
+.scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(186,189,182,0.9);
+    -webkit-box-shadow: inset 0 0 6px  rgba(254,254,254,1);;
+}
+.scroll::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(254,254,254,0.8);
+}
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+                url('/images/loading.gif')
+                50% 50%
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}

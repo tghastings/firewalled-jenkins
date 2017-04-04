@@ -1,0 +1,117 @@
+<div class="container">
+    <div>
+    </div>
+    <div class="row api-class-header">
+        <div class="col-md-4">
+            <h2>Management Console</h2>
+        </div>
+        <div class="col-md-8">
+            <div id="management-alert" class="alert" role="alert" style="display: none;">
+                <span id="alert-content"></span> <span id="close-alert" class="close-button">&nbsp; X &nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div id="console-wrapper">
+    <!-- SET SECRET-->
+        <div id="set-secret" class="row api-class">
+            <div class="col-md-2 set-secret-information">
+                <h3>Initial Setup</h3>
+                <p>Your account does not have an active secret key. A key is required to be set before continuing.</p>
+            </div>
+            <div class="col-md-6 secret-key-form">
+                <!-- Form Name -->
+                <h3>Set Your Secret Key</h3>
+                <form id="set-secret-key-form">
+                    <!-- Text input-->
+                    <div class="form-group">
+                    <label class="control-label" for="secretkey">Secret Key:</label>
+                    <input id="secret-key" name="secretkey" type="password" placeholder="Secret Key" class="form-control input-md" required="">
+                    <span class="help-block">The key that will be used to encrypt your API keys</span>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                    <label class="control-label" for="secret-key-confir,">Confirm Secret Key:</label>
+                    <input id="secret-key-confirm" name="secret-key-confir," type="password" placeholder="Confirm Secret Key" class="form-control input-md" required="">
+                    <span class="help-block">Verify your secret key</span>
+                    </div>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <button id="set-key-btn" class="btn btn-warning" action="submit">Submit</button>
+                        <span class="help-block">This can only be set once. If you forget the key you will have to start over in the system.</span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    <!-- END SET SECRET -->
+    <!-- PROVIDE SECRET-->
+        <div id="provide-secret" class="row api-class" style="display:none;">
+            <div class="col-md-2 set-secret-information">
+            <h3>Provide Key</h3>
+            <p>Please provide the secret key you used when you first registered for the service.</p> <button id="forgot-key-btn" class="btn btn-sm btn-danger" >Forgot Key</button>
+            </div>
+            <div class="col-md-6 secret-key-form">
+                <!-- Form Name -->
+                <h3>Your Secret Key</h3>
+                <form id="provide-secret-key-form">
+                    <!-- Text input-->
+                    <div class="form-group">
+                    <label class="control-label" for="secretkey">Secret Key:</label>
+                    <input id="provide-secret-key-input" name="secretkey" type="password" placeholder="Secret Key" class="form-control input-md" required="">
+                    <span class="help-block">The key that you used when you signed in the first time</span>
+                    </div>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <button id="provide-key-btn" class="btn btn-primary" action="submit">Submit</button>
+                        <span class="help-block">Forgot key? Rest it using the button on the left.</span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    <!-- END PROVIDE SECRET -->
+    <!-- JENKINS -->
+        <div id="jenkins-hosts" class="row api-class jenkins-hosts" style="display:none;">
+            <div id="jenkins-hosts" class="col-md-2 set-secret-information">
+            <h3>Jenkins Hosts</h3>
+            <p id="jenkins-host-verbiage"></p>
+            <span id="jenkins-hosts-template"></span>
+            </div>
+            <div id="add-jenkins-host-form-div" class="col-md-6 secret-key-form">
+                <!-- Form Name -->
+                <h3>Add Jenkins Host</h3>
+                <form id="add-jenkins-api-form">
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="control-label" for="api-url">Jenkins Host URL:</label>
+                        <input id="provide-secret-key-input" name="url" type="text" placeholder="https://jenkins-host.com" class="form-control input-md" required="">
+                        <span class="help-block">The URL to the Jenkins host</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="api-url">Jenkins User ID:</label>
+                        <input id="provide-secret-key-input" name="user_id" type="text" placeholder="your.name@email.com" class="form-control input-md" required="">
+                        <span class="help-block">Your user ID for the Jenkins host</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="api-key">Jenkins Host API Key:</label>
+                        <input id="provide-secret-key-input" name="apiKey" type="text" placeholder="API Key" class="form-control input-md" required="">
+                        <span class="help-block">Your API key for the Jenkins host</span>
+
+                    </div>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <button id="provide-key-btn" class="btn btn-primary" action="submit">Add +</button>
+                    </div>
+                </form>
+            </div>
+            <div id="manage-jenkins-jobs-host-form-div" class="col-md-10 secret-key-form" style="display:none;">
+                <!-- Form Name -->
+                <h3 class="api-url"><span class="jenkins-jobs-api-url-name"></h3></span>
+                <span class="disconnect-api"><button type="button" class="btn btn-danger btn-sm disconnect-api-btn">Disconnect</button></span>
+                <span class="refresh-api"><button type="button" class="btn btn-primary btn-sm refresh-api-btn">Refresh Jobs</button></span>
+                <span class="jenkins-api-info scroll" id="job-info"></span>
+            </div>
+        </div>
+    </div>
+</div>

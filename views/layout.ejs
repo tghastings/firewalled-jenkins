@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
+    <title>Firewalled Jenkins</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -31,68 +31,38 @@
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/navbar-top-fixed.css">
     <link rel="stylesheet" href="/styles/signin.css">
     <!--STYLES END-->
   </head>
 
-  <body>
+  <body onload="checkState()">
+  <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Firewalled Jenkins</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <form class="form-inline my-2 my-lg-0" style="color:#eee">
+          Welcome, &nbsp; <span id="h1-welcome-username"></span>
+          <a id="nav-logout" class="nav-link" href="/session/destroy">Logout</a>
+        </form>
+    </div>
+  </nav>
     <%- body %>
-
-
-
-    <!--
-        Client-side Templates
-        ========================
-
-        HTML templates are important prerequisites of modern, rich client applications.
-        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
-        that you load these templates client-side.
-
-        By default, your Gruntfile is configured to automatically load and precompile
-        client-side JST templates in your `assets/templates` folder, then
-        include them here automatically (between TEMPLATES and TEMPLATES END).
-
-        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
-        For example, here are a few things you could do:
-
-            + Import templates from other directories
-            + Use a different template engine (handlebars, jade, dust, etc.)
-            + Internationalize your client-side templates using a server-side
-              stringfile before they're served.
-    -->
-
+    <div class="modal"></div>
     <!--TEMPLATES-->
-    
+    <script type="text/javascript" src="/jst.js"></script>
     <!--TEMPLATES END-->
-
-
-    <!--
-
-      Client-side Javascript
-      ========================
-
-      You can always bring in JS files manually with `script` tags, or asynchronously
-      on the client using a solution like AMD (RequireJS).  Or, if you like, you can
-      take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
-
-      By default, files in your `assets/js` folder are included here
-      automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
-      CoffeeScript (.coffee) are supported. In production, your scripts will be minified
-      and concatenated into a single file.
-
-      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
-      For example, here are a few things you could do:
-
-          + Change the order of your scripts
-          + Import scripts from other directories
-          + Use a different preprocessor, like TypeScript
-
-    -->
-
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/dependencies/jquery-3.1.1.min.js"></script>
     <script src="/js/dependencies/jquery.serializejson.js"></script>
+    <script src="/js/dependencies/lodash.min.js"></script>
+    <script src="/js/dependencies/tether.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/ie10-viewport-bug-workaround.js"></script>
     <!--SCRIPTS END-->

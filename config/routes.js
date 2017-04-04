@@ -25,10 +25,79 @@ module.exports.routes = {
     controller    : 'Users',
     action        : 'create'
   },
-
+  'post /jenkins/create': {
+    controller    : 'Jenkinsapis',
+    action        : 'create',
+    policy: 'sessionAuth'
+  },
+  'post /user/secret': {
+    controller    : 'Users',
+    action        : 'secret',
+    policy: 'sessionAuth'
+  },
+  'post /user/secret/check': {
+    controller    : 'Users',
+    action        : 'secret_check',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/connect': {
+    controller    : 'Jenkinsapis',
+    action        : 'connect',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/destroy': {
+    controller    : 'Jenkinsapis',
+    action        : 'destroy',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/forgot': {
+    controller    : 'Jenkinsapis',
+    action        : 'forgot',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/jobs': {
+    controller    : 'Jenkinsapis',
+    action        : 'allJobs',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/job/info': {
+    controller    : 'Jenkinsapis',
+    action        : 'jobInfo',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/job/build/info': {
+    controller    : 'Jenkinsapis',
+    action        : 'buildInfo',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/job/build/start': {
+    controller    : 'Jenkinsapis',
+    action        : 'startBuild',
+    policy: 'sessionAuth'
+  },
+  'post /jenkins/job/build/output': {
+    controller    : 'Jenkinsapis',
+    action        : 'buildOutput',
+    policy: 'sessionAuth'
+  },
+  'get /session/validate': {
+    controller    : 'Session',
+    action        : 'validate',
+    policy: 'sessionAuth'
+  },
+  'get /session/destroy': {
+    controller    : 'Session',
+    action        : 'destroy',
+    policy: 'sessionAuth'
+  },
   'get /users': {
     controller    : 'Users',
     action        : 'index'
+  },
+  'get /jenkins': {
+    controller    : 'Jenkinsapis',
+    action        : 'index',
+    policy: 'sessionAuth'
   },
   /***************************************************************************
   *                                                                          *
@@ -41,7 +110,12 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'login'
+    view: 'home',
+    policy: 'sessionAuth'
+  },
+  '/login': {
+    view: 'login',
+    policy: 'loginAuth'
   },
 
   /***************************************************************************
