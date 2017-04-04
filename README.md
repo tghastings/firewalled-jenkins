@@ -1,6 +1,8 @@
 # Firewalled Jenkins ![a-RESTed Jenkins](https://image.ibb.co/dDKyov/firewall_jenkins.jpg)
 A simple nodejs application that utilizes Jenkins' REST API which allows users to view build logs and kick off new builds. This is used primarily by developers that work offsite and can't access Jenkins build servers due to firewall restrictions.
 
+![Firewalled Jenkins Diagram](https://image.ibb.co/cdtJAa/firewalled_jenkins_diagram.png)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -68,7 +70,7 @@ node app.js --prod
 
 ## Authors
 
-* **Thomas "Tom" Hastings** - *Initial work* - [PolarisAlpha](https://github.com/PolarisAlpha)
+* **[Thomas "Tom" Hastings](https://github.com/lifespent)** - *Initial work* - [PolarisAlpha](https://github.com/PolarisAlpha)
 
 ## License
 
