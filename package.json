@@ -7,7 +7,7 @@
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "db-migrate": "^0.10.0-beta.20",
-    "ejs": "2.3.4",
+    "ejs": "2.5.5",
     "grunt": "^1.0.1",
     "grunt-bump": "^0.8.0",
     "grunt-contrib-clean": "1.0.0",
@@ -20,7 +20,7 @@
     "grunt-contrib-uglify": "1.0.1",
     "grunt-contrib-watch": "1.0.0",
     "grunt-sails-linker": "~0.10.1",
-    "grunt-sync": "0.5.2",
+    "grunt-sync": "0.6.2",
     "include-all": "^1.0.0",
     "jenkins-api": "^0.2.8",
     "ldapauth-fork": "^3.0.0",
@@ -29,11 +29,14 @@
     "sails": "github:lifespent/sails#hastings-fix",
     "sails-db-migrate": "^1.5.0",
     "sails-disk": "~0.10.9",
-    "sails-mysql": "^0.11.5"
+    "sails-mysql": "^0.11.5",
+    "snyk": "^1.38.3"
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "main": "app.js",
   "repository": {
@@ -41,5 +44,6 @@
     "url": "ssh://git@github.com:PolarisAlpha/firewalled-jenkins.git"
   },
   "author": "Polaris Alpha",
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
