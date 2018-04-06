@@ -28,7 +28,7 @@
     "rc": "1.0.1",
     "sails": "github:lifespent/sails#hastings-fix",
     "sails-db-migrate": "^1.5.0",
-    "sails-disk": "~0.10.9",
+    "sails-disk": "~1.0.0",
     "sails-mysql": "^0.11.5"
   },
   "scripts": {
